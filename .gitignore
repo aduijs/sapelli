@@ -1,0 +1,5 @@
+.claude/
+CLAUDE.md
+temporary screenshots/
+node_modules/
+*.log

@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Productos — Sapelli Mobiliario</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --orange:      #E05820;
+      --orange-dark: #B8481A;
+      --orange-glow: rgba(224, 88, 32, 0.18);
+      --ink:         #0D0C0B;
+      --ink-2:       #181614;
+      --ink-3:       #242220;
+      --surface:     #1E1C1A;
+      --border:      rgba(255,255,255,0.07);
+      --border-warm: rgba(224, 88, 32, 0.25);
+      --text:        #F5EDE0;
+      --text-soft:   rgba(245, 237, 224, 0.65);
+      --text-muted:  rgba(245, 237, 224, 0.38);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'DM Sans', system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1000;
+      pointer-events: none; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 0 48px; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,12,11,0.96);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-soft);
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-cta {
+      padding: 10px 24px; background: var(--orange);
+      color: #fff !important; border-radius: 3px;
+      font-size: 12px !important; font-weight: 600 !important;
+      letter-spacing: 0.1em !important;
+      transition: background 0.2s ease, transform 0.15s ease !important;
+    }
+    .nav-cta:hover { background: var(--orange-dark) !important; transform: translateY(-1px); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: 72px; min-height: 320px;
+      display: flex; align-items: flex-end;
+      position: relative; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover; background-position: center 60%;
+      filter: brightness(0.25) grayscale(20%);
+    }
+    .page-header-gradient {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(224,88,32,0.08) 0%, transparent 60%),
+        linear-gradient(to top, rgba(13,12,11,1) 0%, rgba(13,12,11,0.3) 70%, transparent 100%);
+    }
+    .page-header-content {
+      position: relative; z-index: 2;
+      padding: 48px 48px 48px; max-width: 1280px; width: 100%; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+    }
+    .breadcrumb a { color: var(--text-muted); transition: color 0.2s ease; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb span { color: var(--orange); }
+    .page-title {
+      font-family: var(--ff-display);
+      font-size: clamp(40px, 5vw, 72px);
+      font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+    }
+    .page-title em { font-style: italic; color: var(--orange); }
+    .page-header-right {
+      flex-shrink: 0; text-align: right;
+    }
+    .page-header-right p {
+      font-size: 14px; font-weight: 300;
+      color: var(--text-soft); max-width: 320px; line-height: 1.7;
+    }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      background: var(--ink-2);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 72px; z-index: 800;
+    }
+    .toolbar-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: flex; align-items: stretch; gap: 0;
+    }
+    .toolbar-cats {
+      display: flex; align-items: center; gap: 0;
+      flex: 1; overflow-x: auto; scrollbar-width: none;
+    }
+    .toolbar-cats::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      flex-shrink: 0; padding: 18px 22px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted);
+      border: none; border-bottom: 2px solid transparent;
+      background: none; transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .cat-btn:hover { color: var(--text-soft); }
+    .cat-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+    .toolbar-divider { width: 1px; background: var(--border); margin: 12px 0; flex-shrink: 0; }
+
+    .toolbar-search {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 20px; flex-shrink: 0;
+    }
+    .toolbar-search input {
+      background: none; border: none; color: var(--text-soft);
+      font-family: var(--ff-body); font-size: 13px; font-weight: 300;
+      width: 180px; outline: none;
+    }
+    .toolbar-search input::placeholder { color: var(--text-muted); }
+    .toolbar-search svg { color: var(--text-muted); flex-shrink: 0; }
+
+    /* ── MAIN LAYOUT ── */
+    .catalog-layout {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 48px 120px;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      position: sticky; top: calc(72px + 57px + 24px);
+      padding-top: 40px;
+    }
+    .sidebar-section { margin-bottom: 36px; }
+    .sidebar-title {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .sidebar-options { display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-opt {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--text-soft); cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .sidebar-opt:hover { color: var(--text); }
+    .sidebar-opt.active { color: var(--orange); }
+    .sidebar-check {
+      width: 16px; height: 16px; flex-shrink: 0;
+      border: 1px solid var(--border); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .sidebar-opt.active .sidebar-check {
+      border-color: var(--orange); background: var(--orange);
+    }
+    .sidebar-check svg { display: none; }
+    .sidebar-opt.active .sidebar-check svg { display: block; }
+
+    .sidebar-range { margin-top: 8px; }
+    .sidebar-range input[type=range] {
+      width: 100%; accent-color: var(--orange);
+    }
+    .sidebar-range-labels {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--text-muted); margin-top: 6px;
+    }
+
+    .sidebar-divider {
+      height: 1px; background: var(--border); margin: 8px 0 24px;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .grid-area { padding-top: 40px; }
+    .grid-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 32px;
+    }
+    .grid-count {
+      font-size: 12px; color: var(--text-muted);
+    }
+    .grid-count strong { color: var(--text-soft); }
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn {
+      width: 32px; height: 32px; border: 1px solid var(--border);
+      border-radius: 3px; display: flex; align-items: center;
+      justify-content: center; color: var(--text-muted);
+      background: none; transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .view-btn.active, .view-btn:hover {
+      color: var(--orange); border-color: var(--border-warm);
+      background: var(--orange-glow);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .products-grid.list-view {
+      grid-template-columns: 1fr;
+    }
+
+    /* ── PRODUCT CARD ── */
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: var(--border-warm);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 4px 12px rgba(224,88,32,0.1);
+    }
+    .product-card-img-wrap {
+      position: relative; overflow: hidden;
+    }
+    .product-card-img-wrap img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      filter: brightness(0.8);
+      transition: transform 0.6s var(--ease-out-expo), filter 0.4s ease;
+    }
+    .product-card:hover .product-card-img-wrap img {
+      transform: scale(1.04); filter: brightness(0.9);
+    }
+    .product-card-badge {
+      position: absolute; top: 12px; left: 12px;
+      padding: 4px 10px; border-radius: 2px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .badge-new { background: var(--orange); color: #fff; }
+    .badge-top { background: rgba(255,255,255,0.1); color: var(--text-soft); backdrop-filter: blur(8px); }
+
+    .product-card-body { padding: 20px; }
+    .product-cat {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: var(--ff-display); font-size: 19px; font-weight: 400;
+      color: var(--text); line-height: 1.25; margin-bottom: 8px;
+    }
+    .product-desc {
+      font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;
+    }
+    .product-specs {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .product-spec {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 4px 8px; border: 1px solid var(--border); border-radius: 2px;
+    }
+    .product-card-footer {
+      padding: 14px 20px; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .product-cta {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.2s ease;
+    }
+    .product-card:hover .product-cta { color: var(--orange); }
+    .product-cta svg { transition: transform 0.2s var(--ease-out-expo); }
+    .product-card:hover .product-cta svg { transform: translateX(4px); }
+
+    .product-sectors {
+      display: flex; gap: 4px; flex-wrap: wrap;
+    }
+    .product-sector-tag {
+      font-size: 9px; color: var(--text-muted);
+      padding: 3px 7px; border: 1px solid var(--border); border-radius: 20px;
+    }
+
+    /* List view card */
+    .products-grid.list-view .product-card {
+      display: grid; grid-template-columns: 280px 1fr auto;
+      transform: none !important;
+    }
+    .products-grid.list-view .product-card:hover { transform: translateX(4px) !important; }
+    .products-grid.list-view .product-card-img-wrap img { aspect-ratio: 4/3; height: 100%; }
+    .products-grid.list-view .product-card-body { display: flex; flex-direction: column; justify-content: center; }
+    .products-grid.list-view .product-card-footer {
+      border-top: none; border-left: 1px solid var(--border);
+      flex-direction: column; justify-content: center; gap: 12px; padding: 24px;
+    }
+
+    /* ── CATEGORY HEADER ── */
+    .cat-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px; margin-top: 48px;
+      grid-column: 1 / -1;
+    }
+    .cat-header:first-child { margin-top: 0; }
+    .cat-header-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange); flex-shrink: 0;
+    }
+    .cat-header-line { flex: 1; height: 1px; background: var(--border); }
+    .cat-header-count { font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+
+    /* ── PRODUCT MODAL ── */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(13,12,11,0.94);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--ink-2); border: 1px solid var(--border);
+      border-radius: 6px; max-width: 960px; width: 100%; max-height: 92vh;
+      overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .modal-gallery {
+      position: sticky; top: 0;
+      height: 100%;
+    }
+    .modal-gallery img {
+      width: 100%; height: 480px; object-fit: cover;
+      display: block; border-radius: 6px 0 0 0;
+    }
+    .modal-gallery-thumbs {
+      display: flex; gap: 6px; padding: 12px;
+      background: var(--ink-3); border-radius: 0 0 0 6px;
+    }
+    .modal-thumb {
+      width: 60px; height: 45px; object-fit: cover;
+      border-radius: 2px; opacity: 0.5; cursor: pointer;
+      border: 1px solid transparent;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+    .modal-thumb.active, .modal-thumb:hover { opacity: 1; border-color: var(--orange); }
+
+    .modal-content { padding: 40px; overflow-y: auto; }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(13,12,11,0.8); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); cursor: pointer; z-index: 10;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--border-warm); }
+    .modal-wrap { position: relative; }
+
+    .modal-cat {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 10px;
+    }
+    .modal-name {
+      font-family: var(--ff-display); font-size: 32px; font-weight: 300;
+      color: var(--text); line-height: 1.15; margin-bottom: 20px;
+    }
+    .modal-desc {
+      font-size: 14px; font-weight: 300; color: var(--text-soft);
+      line-height: 1.8; margin-bottom: 28px;
+    }
+
+    .modal-spec-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 28px;
+      padding: 24px; background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border); border-radius: 4px;
+    }
+    .modal-spec-item label {
+      display: block; font-size: 9px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .modal-spec-item span { font-size: 13px; color: var(--text); }
+
+    .modal-materials { margin-bottom: 28px; }
+    .modal-materials h4 {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+    }
+    .material-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+    .material-swatch {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border: 1px solid var(--border); border-radius: 3px;
+      font-size: 11px; color: var(--text-soft);
+      transition: border-color 0.2s ease;
+    }
+    .material-swatch:hover { border-color: var(--border-warm); }
+    .swatch-dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+
+    .modal-sectors-used { margin-bottom: 28px; }
+    .modal-sectors-used h4 {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+    }
+    .modal-sector-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .modal-sector-tag {
+      padding: 6px 14px; border: 1px solid var(--border-warm);
+      border-radius: 20px; font-size: 11px; color: var(--orange);
+      background: var(--orange-glow);
+    }
+
+    .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; background: var(--orange); color: #fff;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; border-radius: 3px; border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(224,88,32,0.3);
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; background: none;
+      border: 1px solid var(--border); color: var(--text-soft);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; border-radius: 3px; cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .btn-outline:hover { border-color: var(--border-warm); color: var(--text); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--ink-2); border-top: 1px solid var(--border);
+      padding: 96px 0; text-align: center;
+    }
+    .cta-inner { max-width: 560px; margin: 0 auto; padding: 0 48px; }
+    .cta-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 24px; justify-content: center;
+    }
+    .cta-label::before, .cta-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .cta-title {
+      font-family: var(--ff-display); font-size: clamp(32px, 4vw, 52px);
+      font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .cta-title em { font-style: italic; color: var(--orange); }
+    .cta-body { font-size: 15px; font-weight: 300; color: var(--text-soft); line-height: 1.8; margin-bottom: 40px; }
+    .cta-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 0; color: var(--text-soft); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text-soft); }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink); border-top: 1px solid var(--border); padding: 64px 0 32px;
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-brand img { height: 32px; margin-bottom: 20px; }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 14px; color: var(--text-soft); transition: color 0.2s ease; }
+    .footer-col a:hover { color: var(--orange); }
+    .footer-bottom { padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease; }
+    .footer-social a:hover { border-color: var(--border-warm); color: var(--orange); background: var(--orange-glow); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      grid-column: 1 / -1; text-align: center; padding: 80px 0;
+      display: none;
+    }
+    .empty-state.show { display: block; }
+    .empty-state h3 { font-family: var(--ff-display); font-size: 28px; font-weight: 300; color: var(--text-soft); margin-bottom: 12px; }
+    .empty-state p { font-size: 14px; color: var(--text-muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .catalog-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: flex; flex-wrap: wrap; gap: 24px; padding-top: 32px; }
+      .sidebar-section { min-width: 160px; margin-bottom: 0; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .modal-grid { grid-template-columns: 1fr; }
+      .modal-gallery { position: static; }
+      .modal-gallery img { height: 300px; border-radius: 6px 6px 0 0; }
+      .modal-gallery-thumbs { border-radius: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 640px) {
+      .nav { padding: 0 24px; }
+      .page-header-content { flex-direction: column; padding: 40px 24px; }
+      .toolbar-inner { padding: 0 24px; }
+      .catalog-layout { padding: 0 24px 80px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .footer-inner { padding: 0 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 20px; }
+      .products-grid.list-view .product-card { grid-template-columns: 1fr; }
+      .products-grid.list-view .product-card-footer { border-top: 1px solid var(--border); border-left: none; flex-direction: row; padding: 14px 20px; }
+      .modal-spec-grid { grid-template-columns: 1fr; }
+    }
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-soft);
+      cursor: pointer;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--text-soft); }
+    .theme-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --ink:         #F8F3ED;
+      --ink-2:       #F0E9DF;
+      --ink-3:       #E8DFD2;
+      --surface:     #EDE4D6;
+      --border:      rgba(13,12,11,0.10);
+      --border-warm: rgba(224, 88, 32, 0.30);
+      --text:        #0D0C0B;
+      --text-soft:   rgba(13, 12, 11, 0.58);
+      --text-muted:  rgba(13, 12, 11, 0.35);
+      --orange-glow: rgba(224, 88, 32, 0.10);
+    }
+    [data-theme="light"] .nav { background: rgba(248, 243, 237, 0.97); }
+    [data-theme="light"] body::before { opacity: 0.012; }
+  </style>
+  <script>if(localStorage.getItem('sapelli-theme')==='light')document.documentElement.dataset.theme='light';</script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#nosotros">Nosotros</a></li>
+      <li><a href="sectores.html">Sectores</a></li>
+      <li><a href="catalogo.html" class="active">Productos</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="index.html#contacto" class="nav-cta">Cotizar Proyecto</a></li>
+      <li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-gradient"></div>
+    <div class="page-header-content">
+      <div>
+        <div class="breadcrumb">
+          <a href="index.html">Inicio</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>Catálogo</span>
+        </div>
+        <h1 class="page-title">Catálogo de<br /><em>Productos</em></h1>
+      </div>
+      <div class="page-header-right">
+        <p>Líneas completas de mobiliario contractual para cada sector y necesidad. Fabricación a medida disponible en todas las referencias.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="toolbar-cats">
+        <button class="cat-btn active" data-cat="all">Todos</button>
+        <button class="cat-btn" data-cat="asientos">Asientos</button>
+        <button class="cat-btn" data-cat="mesas">Mesas &amp; Escritorios</button>
+        <button class="cat-btn" data-cat="almacenamiento">Almacenamiento</button>
+        <button class="cat-btn" data-cat="hoteleria">Hotelería</button>
+        <button class="cat-btn" data-cat="recepciones">Recepciones</button>
+        <button class="cat-btn" data-cat="exterior">Exterior</button>
+      </div>
+      <div class="toolbar-divider"></div>
+      <div class="toolbar-search">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M9.5 9.5l3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Buscar producto..." />
+      </div>
+    </div>
+  </div>
+
+  <!-- CATALOG LAYOUT -->
+  <div class="catalog-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Sector de uso</div>
+        <div class="sidebar-options">
+          <div class="sidebar-opt active" data-sector-filter="all">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Todos los sectores
+          </div>
+          <div class="sidebar-opt" data-sector-filter="hotel">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Hotelería
+          </div>
+          <div class="sidebar-opt" data-sector-filter="oficina">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Oficinas
+          </div>
+          <div class="sidebar-opt" data-sector-filter="restaurante">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Restaurantes
+          </div>
+          <div class="sidebar-opt" data-sector-filter="salud">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Salud
+          </div>
+          <div class="sidebar-opt" data-sector-filter="educacion">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Educación
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Material</div>
+        <div class="sidebar-options">
+          <div class="sidebar-opt active" data-mat-filter="all">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Todos
+          </div>
+          <div class="sidebar-opt" data-mat-filter="madera">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Madera maciza
+          </div>
+          <div class="sidebar-opt" data-mat-filter="tapizado">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Tapizado
+          </div>
+          <div class="sidebar-opt" data-mat-filter="metal">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Metal &amp; acero
+          </div>
+          <div class="sidebar-opt" data-mat-filter="mixto">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Mixto
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Fabricación</div>
+        <div class="sidebar-options">
+          <div class="sidebar-opt active">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Estándar (stock)
+          </div>
+          <div class="sidebar-opt active">
+            <div class="sidebar-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            A medida (custom)
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- GRID AREA -->
+    <div class="grid-area">
+      <div class="grid-top">
+        <div class="grid-count"><strong id="productCount">18</strong> productos encontrados</div>
+        <div class="view-toggle">
+          <button class="view-btn active" id="gridViewBtn" title="Vista cuadrícula">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/>
+              <rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </button>
+          <button class="view-btn" id="listViewBtn" title="Vista lista">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M1 3h12M1 7h12M1 11h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div id="productGrid" class="products-grid">
+        <div class="empty-state" id="emptyState">
+          <h3>No se encontraron productos</h3>
+          <p>Intente con otros filtros o términos de búsqueda.</p>
+        </div>
+
+        <!-- ── ASIENTOS ── -->
+        <div class="cat-header" data-cat-group="asientos">
+          <div class="cat-header-label">Asientos</div>
+          <div class="cat-header-line"></div>
+          <div class="cat-header-count">6 referencias</div>
+        </div>
+
+        <div class="product-card" data-cat="asientos" data-sectors="restaurante,hotel,educacion" data-mat="tapizado"
+          data-name="Silla Comedor Contractual Serie C"
+          data-desc="Silla de comedor de alta resistencia para entornos contractuales. Estructura en haya vaporizada, asiento y respaldo tapizado con espuma de alta densidad (40 kg/m³) y tela técnica repelente. Soporte de 120 kg certificado."
+          data-img="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80"
+          data-img3="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80"
+          data-specs='[{"label":"Dimensiones","val":"W 52 × D 55 × H 82 cm"},{"label":"Asiento","val":"H 46 cm"},{"label":"Carga máx.","val":"120 kg"},{"label":"Apilable","val":"Hasta 6 unid."},{"label":"Plazo estándar","val":"21 días"},{"label":"Mínimo","val":"20 unid."}]'
+          data-materials='[{"name":"Tela técnica","color":"#5A5A5A"},{"name":"Cuero natural","color":"#8B6914"},{"name":"Vinilo contractual","color":"#2C2C2C"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" alt="Silla Comedor Contractual" />
+            <div class="product-card-badge badge-top">Top ventas</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Asientos</div>
+            <div class="product-name">Silla Comedor<br/>Serie C</div>
+            <div class="product-desc">Alta resistencia para uso intensivo. Estructura haya vaporizada, tapiz técnico repelente.</div>
+            <div class="product-specs">
+              <span class="product-spec">W52 × D55 × H82</span>
+              <span class="product-spec">120 kg</span>
+              <span class="product-spec">Apilable</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Rest.</span><span class="product-sector-tag">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="asientos" data-sectors="hotel,restaurante" data-mat="tapizado"
+          data-name="Poltrona Lounge Serie L"
+          data-desc="Poltrona de diseño para lobbies, lounges y áreas de espera en hotelería. Estructura en madera sólida, tapizado en tela de lino o cuero natural. Cojines intercambiables con zipper oculto para facilitar el mantenimiento en operación continua."
+          data-img="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80"
+          data-img3="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80"
+          data-specs='[{"label":"Dimensiones","val":"W 80 × D 82 × H 76 cm"},{"label":"Asiento","val":"H 42 cm"},{"label":"Peso","val":"18 kg"},{"label":"Apilable","val":"No"},{"label":"Plazo estándar","val":"28 días"},{"label":"Mínimo","val":"6 unid."}]'
+          data-materials='[{"name":"Lino natural","color":"#C9B99A"},{"name":"Cuero caramelo","color":"#C08040"},{"name":"Terciopelo","color":"#3A3A5C"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=600&q=80" alt="Poltrona Lounge" />
+            <div class="product-card-badge badge-new">Nuevo</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Asientos</div>
+            <div class="product-name">Poltrona Lounge<br/>Serie L</div>
+            <div class="product-desc">Para lobbies y áreas de espera. Cojines intercambiables con zipper oculto.</div>
+            <div class="product-specs">
+              <span class="product-spec">W80 × D82 × H76</span>
+              <span class="product-spec">18 kg</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Hotel</span><span class="product-sector-tag">Rest.</span></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="asientos" data-sectors="oficina,educacion" data-mat="mixto"
+          data-name="Silla Operativa Ergonómica"
+          data-desc="Silla operativa de uso prolongado con mecanismo sincronizado, soporte lumbar ajustable y reposabrazos en 4D. Respaldo en malla técnica transpirable. Certificación BIFMA para uso contractual en oficinas y centros educativos."
+          data-img="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+          data-img3=""
+          data-specs='[{"label":"Dimensiones","val":"W 64 × D 68 × H 90–100 cm"},{"label":"Altura asiento","val":"42–52 cm ajust."},{"label":"Carga máx.","val":"135 kg"},{"label":"Garantía","val":"5 años"},{"label":"Plazo estándar","val":"14 días"},{"label":"Mínimo","val":"10 unid."}]'
+          data-materials='[{"name":"Malla negra","color":"#1A1A1A"},{"name":"Malla gris","color":"#888888"},{"name":"Asiento tela","color":"#3C3C3C"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=600&q=80" alt="Silla Operativa" />
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Asientos</div>
+            <div class="product-name">Silla Operativa<br/>Ergonómica</div>
+            <div class="product-desc">Mecanismo sincronizado, lumbar ajustable. Certificación BIFMA. Malla transpirable.</div>
+            <div class="product-specs">
+              <span class="product-spec">135 kg</span>
+              <span class="product-spec">BIFMA</span>
+              <span class="product-spec">5 años gtía</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Oficina</span><span class="product-sector-tag">Educ.</span></div>
+          </div>
+        </div>
+
+        <!-- ── MESAS ── -->
+        <div class="cat-header" data-cat-group="mesas">
+          <div class="cat-header-label">Mesas &amp; Escritorios</div>
+          <div class="cat-header-line"></div>
+          <div class="cat-header-count">5 referencias</div>
+        </div>
+
+        <div class="product-card" data-cat="mesas" data-sectors="oficina" data-mat="madera"
+          data-name="Escritorio Ejecutivo Serie E"
+          data-desc="Escritorio de dirección en madera maciza de cedro o nogal con acabado en barniz mate. Estructura metálica oculta con regulación de nivel. Gestión de cables integrada. Disponible en configuración estándar, en L o con módulo de almacenamiento lateral."
+          data-img="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=800&q=80"
+          data-img3=""
+          data-specs='[{"label":"Dimensiones","val":"W 160–200 × D 80 × H 75 cm"},{"label":"Material","val":"Cedro o nogal macizo"},{"label":"Acabado","val":"Barniz mate / cera"},{"label":"Cable mgmt","val":"Integrado"},{"label":"Plazo estándar","val":"35 días"},{"label":"Mínimo","val":"1 unid."}]'
+          data-materials='[{"name":"Cedro natural","color":"#8B5E3C"},{"name":"Nogal oscuro","color":"#4A2C1A"},{"name":"Roble claro","color":"#B8925A"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80" alt="Escritorio Ejecutivo" />
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Mesas &amp; Escritorios</div>
+            <div class="product-name">Escritorio Ejecutivo<br/>Serie E</div>
+            <div class="product-desc">Cedro o nogal macizo. Cable management integrado. Config. estándar, en L o modular.</div>
+            <div class="product-specs">
+              <span class="product-spec">W160–200 cm</span>
+              <span class="product-spec">Madera maciza</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Oficina</span></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="mesas" data-sectors="restaurante,hotel" data-mat="mixto"
+          data-name="Mesa Comedor Contractual"
+          data-desc="Mesa para restaurantes y comedores hoteleros en tablero de madera sólida o compacto estratificado HPL. Base en tubo de acero pintado en polvo. Regulador de nivel antivibración incluido. Resistente a humedad y limpieza con productos químicos."
+          data-img="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80"
+          data-img3=""
+          data-specs='[{"label":"Formatos","val":"Ø70 / 70×70 / 70×120 cm"},{"label":"Altura","val":"75 cm estándar"},{"label":"Tablero","val":"HPL 12mm o madera"},{"label":"Base","val":"Acero pintado en polvo"},{"label":"Plazo estándar","val":"21 días"},{"label":"Mínimo","val":"10 unid."}]'
+          data-materials='[{"name":"HPL blanco","color":"#F0EDE8"},{"name":"HPL roble","color":"#C09060"},{"name":"HPL negro","color":"#1A1A1A"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=600&q=80" alt="Mesa Comedor" />
+            <div class="product-card-badge badge-top">Top ventas</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Mesas &amp; Escritorios</div>
+            <div class="product-name">Mesa Comedor<br/>Contractual</div>
+            <div class="product-desc">HPL o madera, base acero. Anti-humedad. Múltiples formatos y tamaños.</div>
+            <div class="product-specs">
+              <span class="product-spec">Ø70 / 70×70 / 70×120</span>
+              <span class="product-spec">HPL 12mm</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Rest.</span><span class="product-sector-tag">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="mesas" data-sectors="oficina,educacion" data-mat="mixto"
+          data-name="Mesa de Reuniones Serie R"
+          data-desc="Mesa de conferencias para 8 a 20 personas. Tablero en madera enchapada con canto en aluminio. Centro de conectividad con tomas de corriente, HDMI y USB empotradas. Disponible en secciones modulares para facilitar el transporte e instalación."
+          data-img="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+          data-img2=""
+          data-img3=""
+          data-specs='[{"label":"Largo","val":"240 / 300 / 360 / 480 cm"},{"label":"Ancho","val":"120 cm"},{"label":"Conectividad","val":"Corriente + HDMI + USB"},{"label":"Modular","val":"Sí, desmontable"},{"label":"Plazo estándar","val":"35 días"},{"label":"Mínimo","val":"1 unid."}]'
+          data-materials='[{"name":"Enchapado nogal","color":"#5C3A1A"},{"name":"Enchapado roble","color":"#A87040"},{"name":"Laminado blanco","color":"#E8E4DF"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=600&q=80" alt="Mesa de Reuniones" />
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Mesas &amp; Escritorios</div>
+            <div class="product-name">Mesa de Reuniones<br/>Serie R</div>
+            <div class="product-desc">8 a 20 personas. Conectividad empotrada (220V, HDMI, USB). Modular y desmontable.</div>
+            <div class="product-specs">
+              <span class="product-spec">240–480 cm</span>
+              <span class="product-spec">Conectividad</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Oficina</span><span class="product-sector-tag">Educ.</span></div>
+          </div>
+        </div>
+
+        <!-- ── HOTELERÍA ── -->
+        <div class="cat-header" data-cat-group="hoteleria">
+          <div class="cat-header-label">Hotelería</div>
+          <div class="cat-header-line"></div>
+          <div class="cat-header-count">4 referencias</div>
+        </div>
+
+        <div class="product-card" data-cat="hoteleria" data-sectors="hotel" data-mat="mixto"
+          data-name="Kit Habitación Estándar"
+          data-desc="Conjunto completo para habitación hotelera: cama base, cabecero, mesitas de noche, escritorio, silla de escritorio y cajonera. Diseño coordinado disponible en 3 acabados. Producción en lote para reducir costos en proyectos de más de 50 habitaciones."
+          data-img="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?auto=format&fit=crop&w=800&q=80"
+          data-img2="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80"
+          data-img3=""
+          data-specs='[{"label":"Incluye","val":"6 piezas coordinadas"},{"label":"Cama","val":"1.5 / 1.8 / 2.0 m"},{"label":"Acabados","val":"3 colecciones"},{"label":"Personalizable","val":"Logo, herrajes, tela"},{"label":"Plazo estándar","val":"45 días"},{"label":"Mínimo","val":"10 habitaciones"}]'
+          data-materials='[{"name":"Colección Arena","color":"#C4A882"},{"name":"Colección Carbón","color":"#3C3835"},{"name":"Colección Nieve","color":"#E8E4DF"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1631049552057-403cdb8f0658?auto=format&fit=crop&w=600&q=80" alt="Kit Habitación Hotel" />
+            <div class="product-card-badge badge-top">Top ventas</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Hotelería</div>
+            <div class="product-name">Kit Habitación<br/>Estándar</div>
+            <div class="product-desc">6 piezas coordinadas: cama, cabecero, mesitas, escritorio, silla y cajonera. 3 acabados.</div>
+            <div class="product-specs">
+              <span class="product-spec">6 piezas</span>
+              <span class="product-spec">3 colecciones</span>
+              <span class="product-spec">Min. 10 hab.</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Hotel</span></div>
+          </div>
+        </div>
+
+        <div class="product-card" data-cat="hoteleria" data-sectors="hotel" data-mat="tapizado"
+          data-name="Cabecero Tapizado Serie H"
+          data-desc="Cabecero de cama para hotelería con estructura en MDF lacado y relleno en espuma HR50. Tapizado en tela técnica o cuero ecológico. Fijación a pared con sistema de encastre oculto. Compatible con camas 1.5, 1.8 y 2.0 m."
+          data-img="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+          data-img2=""
+          data-img3=""
+          data-specs='[{"label":"Ancho","val":"160 / 190 / 210 cm"},{"label":"Alto","val":"90 / 120 cm"},{"label":"Relleno","val":"Espuma HR50"},{"label":"Fijación","val":"Sistema encastre oculto"},{"label":"Plazo estándar","val":"21 días"},{"label":"Mínimo","val":"20 unid."}]'
+          data-materials='[{"name":"Tela arena","color":"#C4A882"},{"name":"Cuero eco gris","color":"#888888"},{"name":"Terciopelo verde","color":"#2D4A3E"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80" alt="Cabecero Hotel" />
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Hotelería</div>
+            <div class="product-name">Cabecero Tapizado<br/>Serie H</div>
+            <div class="product-desc">MDF lacado + espuma HR50. Encastre oculto. Múltiples alturas y tapizados.</div>
+            <div class="product-specs">
+              <span class="product-spec">160 / 190 / 210 cm</span>
+              <span class="product-spec">HR50</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Hotel</span></div>
+          </div>
+        </div>
+
+        <!-- ── RECEPCIONES ── -->
+        <div class="cat-header" data-cat-group="recepciones">
+          <div class="cat-header-label">Recepciones &amp; Lobbies</div>
+          <div class="cat-header-line"></div>
+          <div class="cat-header-count">3 referencias</div>
+        </div>
+
+        <div class="product-card" data-cat="recepciones" data-sectors="hotel,oficina,salud" data-mat="mixto"
+          data-name="Mostrador de Recepción"
+          data-desc="Mostrador de atención a medida para hoteles, clínicas y edificios corporativos. Estructura en MDF con enchapado en madera o laminado HPL. Frente decorativo disponible en madera, acero inoxidable o retroiluminado. Gestión de cables y cajonería integrada."
+          data-img="https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=800&q=80"
+          data-img2=""
+          data-img3=""
+          data-specs='[{"label":"Largo","val":"A medida (min. 120 cm)"},{"label":"Alto mostrador","val":"110 cm"},{"label":"Alto frente","val":"75 cm"},{"label":"Frente","val":"Madera / HPL / Acero / LED"},{"label":"Plazo","val":"35–45 días"},{"label":"Mínimo","val":"1 unid."}]'
+          data-materials='[{"name":"Enchapado nogal","color":"#5C3A1A"},{"name":"HPL blanco","color":"#F0EDE8"},{"name":"Acero inox","color":"#C0C0C0"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=600&q=80" alt="Mostrador Recepción" />
+            <div class="product-card-badge badge-new">Nuevo</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Recepciones</div>
+            <div class="product-name">Mostrador de<br/>Recepción</div>
+            <div class="product-desc">Completamente a medida. Frente en madera, HPL, acero o con retroiluminación LED.</div>
+            <div class="product-specs">
+              <span class="product-spec">A medida</span>
+              <span class="product-spec">Retroiluminado</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Hotel</span><span class="product-sector-tag">Oficina</span><span class="product-sector-tag">Salud</span></div>
+          </div>
+        </div>
+
+        <!-- ── ALMACENAMIENTO ── -->
+        <div class="cat-header" data-cat-group="almacenamiento">
+          <div class="cat-header-label">Almacenamiento</div>
+          <div class="cat-header-line"></div>
+          <div class="cat-header-count">2 referencias</div>
+        </div>
+
+        <div class="product-card" data-cat="almacenamiento" data-sectors="hotel,oficina" data-mat="madera"
+          data-name="Cajonera Móvil Serie M"
+          data-desc="Cajonera con ruedas para puesto de trabajo y habitación hotelera. 3 cajones con cierre suave y cerradura. Tablero superior en el mismo acabado que el escritorio. Disponible con soporte de CPU integrado."
+          data-img="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80"
+          data-img2=""
+          data-img3=""
+          data-specs='[{"label":"Dimensiones","val":"W 40 × D 55 × H 60 cm"},{"label":"Cajones","val":"3 (cierre suave)"},{"label":"Cerradura","val":"Incluida"},{"label":"Ruedas","val":"4 (2 con freno)"},{"label":"Plazo estándar","val":"14 días"},{"label":"Mínimo","val":"5 unid."}]'
+          data-materials='[{"name":"MDF blanco","color":"#F0EDE8"},{"name":"MDF nogal","color":"#7A4A28"},{"name":"MDF grafito","color":"#3A3835"}]'>
+          <div class="product-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=600&q=80" alt="Cajonera Móvil" />
+          </div>
+          <div class="product-card-body">
+            <div class="product-cat">Almacenamiento</div>
+            <div class="product-name">Cajonera Móvil<br/>Serie M</div>
+            <div class="product-desc">3 cajones cierre suave, cerradura, ruedas con freno. Coordinada con línea de escritorios.</div>
+            <div class="product-specs">
+              <span class="product-spec">W40 × D55 × H60</span>
+              <span class="product-spec">Con cerradura</span>
+            </div>
+          </div>
+          <div class="product-card-footer">
+            <div class="product-cta">Ver ficha técnica <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+            <div class="product-sectors"><span class="product-sector-tag">Hotel</span><span class="product-sector-tag">Oficina</span></div>
+          </div>
+        </div>
+
+      </div><!-- /products-grid -->
+    </div><!-- /grid-area -->
+  </div><!-- /catalog-layout -->
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-label">¿No encuentra lo que busca?</div>
+      <h2 class="cta-title">Fabricamos <em>a medida</em></h2>
+      <p class="cta-body">Todas nuestras líneas pueden personalizarse en dimensiones, materiales y acabados. Cuéntenos su necesidad y le enviamos una propuesta.</p>
+      <div class="cta-actions">
+        <a href="index.html#contacto" class="btn-primary">
+          Solicitar Cotización
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="proyectos.html" class="btn-ghost">
+          Ver proyectos realizados
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+          <p>Fabricantes de mobiliario contractual de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="index.html#nosotros">Quiénes Somos</a></li>
+            <li><a href="index.html#proceso">Cómo Trabajamos</a></li>
+            <li><a href="index.html#industrial">Tecnología SCM</a></li>
+            <li><a href="#">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Productos</h4>
+          <ul>
+            <li><a href="catalogo.html?cat=asientos">Asientos</a></li>
+            <li><a href="catalogo.html?cat=mesas">Mesas &amp; Escritorios</a></li>
+            <li><a href="catalogo.html?cat=hoteleria">Hotelería</a></li>
+            <li><a href="catalogo.html?cat=recepciones">Recepciones</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:ventas@sapellimobiliario.pe">ventas@sapellimobiliario.pe</a></li>
+            <li><a href="tel:+5116001234">+51 (1) 600-1234</a></li>
+            <li><a href="#">Villa el Salvador, Lima, Perú</a></li>
+            <li><a href="index.html#contacto">Solicitar Cotización</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Sapelli Mobiliario S.A.C. — Todos los derechos reservados.</div>
+        <div class="footer-social">
+          <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 2A1.5 1.5 0 102 3.5 1.5 1.5 0 003.5 2zM2 6h3v8H2zm4.5 0H9v1.1A2.5 2.5 0 0111.5 6C13.4 6 14 7.3 14 9.3V14h-3v-4.3c0-.9-.3-1.5-1-1.5-.6 0-1 .4-1.2 1V14H6.5z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 2c1.6 0 1.8 0 2.4.04 1.6.07 2.5.97 2.56 2.56C13 5.2 13 5.4 13 7s0 1.8-.04 2.4c-.07 1.6-.97 2.5-2.56 2.56C9.8 12 9.6 12 8 12s-1.8 0-2.4-.04c-1.6-.07-2.5-.97-2.56-2.56C3 8.8 3 8.6 3 7s0-1.8.04-2.4C3.1 3 4 2.1 5.6 2.04 6.2 2 6.4 2 8 2zm0 1.2c-1.58 0-1.77 0-2.39.04-1.08.05-1.58.54-1.63 1.63C4 5.49 4 5.68 4 7.27c0 1.58 0 1.77.04 2.39.05 1.08.54 1.58 1.63 1.63.62.04.81.04 2.39.04 1.58 0 1.77 0 2.39-.04 1.08-.05 1.58-.54 1.63-1.63.04-.62.04-.81.04-2.39 0-1.58 0-1.77-.04-2.39-.05-1.08-.54-1.58-1.63-1.63C9.77 3.2 9.58 3.2 8 3.2zm0 2.04a2.03 2.03 0 110 4.05A2.03 2.03 0 018 5.24zm0 1.2a.83.83 0 100 1.66.83.83 0 000-1.66zm2.18-2.1a.48.48 0 110 .96.48.48 0 010-.96z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-backdrop" id="modal" onclick="handleBackdropClick(event)">
+    <div class="modal-wrap">
+      <div class="modal" id="modalBox">
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2l10 10M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="modal-grid">
+          <div class="modal-gallery">
+            <img id="modalMainImg" src="" alt="" />
+            <div class="modal-gallery-thumbs" id="modalThumbs"></div>
+          </div>
+          <div class="modal-content">
+            <div class="modal-cat" id="modalCat"></div>
+            <h2 class="modal-name" id="modalName"></h2>
+            <p class="modal-desc" id="modalDesc"></p>
+            <div class="modal-spec-grid" id="modalSpecs"></div>
+            <div class="modal-materials">
+              <h4>Acabados disponibles</h4>
+              <div class="material-swatches" id="modalMaterials"></div>
+            </div>
+            <div class="modal-sectors-used">
+              <h4>Sectores de aplicación</h4>
+              <div class="modal-sector-tags" id="modalSectors"></div>
+            </div>
+            <div class="modal-actions">
+              <a href="index.html#contacto" class="btn-primary">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                Solicitar cotización
+              </a>
+              <button class="btn-outline" onclick="closeModal()">
+                Cerrar ficha
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Category filter (toolbar) ──
+    const catBtns = document.querySelectorAll('.cat-btn');
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterProducts();
+      });
+    });
+
+    // ── Search ──
+    document.getElementById('searchInput').addEventListener('input', filterProducts);
+
+    // ── Sidebar filters (visual only for now — toggles active class) ──
+    document.querySelectorAll('.sidebar-opt[data-sector-filter], .sidebar-opt[data-mat-filter]').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const group = opt.dataset.sectorFilter !== undefined ? '[data-sector-filter]' : '[data-mat-filter]';
+        if (opt.dataset.sectorFilter === 'all' || opt.dataset.matFilter === 'all') {
+          document.querySelectorAll(`.sidebar-opt${group}`).forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+        } else {
+          document.querySelector(`.sidebar-opt[data-sector-filter="all"], .sidebar-opt[data-mat-filter="all"]`)?.classList.remove('active');
+          opt.classList.toggle('active');
+        }
+        filterProducts();
+      });
+    });
+
+    function filterProducts() {
+      const activeCat = document.querySelector('.cat-btn.active')?.dataset.cat || 'all';
+      const search = document.getElementById('searchInput').value.toLowerCase();
+
+      const cards = document.querySelectorAll('.product-card');
+      const catHeaders = document.querySelectorAll('.cat-header');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const cat = card.dataset.cat || '';
+        const name = (card.dataset.name || '').toLowerCase();
+        const desc = (card.dataset.desc || '').toLowerCase();
+
+        const matchCat = activeCat === 'all' || cat === activeCat;
+        const matchSearch = !search || name.includes(search) || desc.includes(search);
+
+        if (matchCat && matchSearch) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide category headers
+      catHeaders.forEach(header => {
+        const group = header.dataset.catGroup;
+        const hasVisible = [...cards].some(c => c.dataset.cat === group && c.style.display !== 'none');
+        header.style.display = (activeCat === 'all' || activeCat === group) && hasVisible ? '' : 'none';
+      });
+
+      document.getElementById('productCount').textContent = visible;
+      document.getElementById('emptyState').classList.toggle('show', visible === 0);
+    }
+
+    // ── View toggle ──
+    const grid = document.getElementById('productGrid');
+    document.getElementById('gridViewBtn').addEventListener('click', () => {
+      grid.classList.remove('list-view');
+      document.getElementById('gridViewBtn').classList.add('active');
+      document.getElementById('listViewBtn').classList.remove('active');
+    });
+    document.getElementById('listViewBtn').addEventListener('click', () => {
+      grid.classList.add('list-view');
+      document.getElementById('listViewBtn').classList.add('active');
+      document.getElementById('gridViewBtn').classList.remove('active');
+    });
+
+    // ── Modal ──
+    const sectorNames = { hotel: 'Hotelería', oficina: 'Oficinas', restaurante: 'Restaurantes', salud: 'Salud', educacion: 'Educación' };
+
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const d = card.dataset;
+        const specs = JSON.parse(d.specs || '[]');
+        const materials = JSON.parse(d.materials || '[]');
+        const sectors = (d.sectors || '').split(',').filter(Boolean);
+        const imgs = [d.img, d.img2, d.img3].filter(Boolean);
+
+        document.getElementById('modalCat').textContent = d.cat?.replace(/([A-Z])/g, ' $1') || '';
+        document.getElementById('modalName').textContent = d.name;
+        document.getElementById('modalDesc').textContent = d.desc;
+
+        document.getElementById('modalMainImg').src = imgs[0] || '';
+        document.getElementById('modalMainImg').alt = d.name;
+
+        // Thumbs
+        const thumbsEl = document.getElementById('modalThumbs');
+        thumbsEl.innerHTML = imgs.map((src, i) =>
+          `<img class="modal-thumb ${i===0?'active':''}" src="${src}" alt="" onclick="switchModalImg(this, '${src}')" />`
+        ).join('');
+
+        // Specs
+        document.getElementById('modalSpecs').innerHTML = specs.map(s =>
+          `<div class="modal-spec-item"><label>${s.label}</label><span>${s.val}</span></div>`
+        ).join('');
+
+        // Materials
+        document.getElementById('modalMaterials').innerHTML = materials.map(m =>
+          `<div class="material-swatch"><div class="swatch-dot" style="background:${m.color};border:1px solid rgba(255,255,255,0.1)"></div>${m.name}</div>`
+        ).join('');
+
+        // Sectors
+        document.getElementById('modalSectors').innerHTML = sectors.map(s =>
+          `<div class="modal-sector-tag">${sectorNames[s] || s}</div>`
+        ).join('');
+
+        document.getElementById('modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function switchModalImg(thumb, src) {
+      document.getElementById('modalMainImg').src = src;
+      document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target === document.getElementById('modal')) closeModal();
+    }
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── URL param filter on load ──
+    const urlCat = new URLSearchParams(location.search).get('cat');
+    if (urlCat) {
+      const btn = document.querySelector(`.cat-btn[data-cat="${urlCat}"]`);
+      if (btn) { catBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); filterProducts(); }
+    }
+
+    // ── Theme ──
+    function toggleTheme() {
+      const isLight = document.documentElement.dataset.theme === 'light';
+      document.documentElement.dataset.theme = isLight ? '' : 'light';
+      localStorage.setItem('sapelli-theme', isLight ? 'dark' : 'light');
+    }
+  </script>
+
+</body>
+</html>

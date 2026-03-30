@@ -1197,17 +1197,12 @@
     // ── Search ──
     document.getElementById('searchInput').addEventListener('input', filterProducts);
 
-    // ── Sidebar filters (visual only for now — toggles active class) ──
+    // ── Sidebar filters ──
     document.querySelectorAll('.sidebar-opt[data-sector-filter], .sidebar-opt[data-mat-filter]').forEach(opt => {
       opt.addEventListener('click', () => {
         const group = opt.dataset.sectorFilter !== undefined ? '[data-sector-filter]' : '[data-mat-filter]';
-        if (opt.dataset.sectorFilter === 'all' || opt.dataset.matFilter === 'all') {
-          document.querySelectorAll(`.sidebar-opt${group}`).forEach(o => o.classList.remove('active'));
-          opt.classList.add('active');
-        } else {
-          document.querySelector(`.sidebar-opt[data-sector-filter="all"], .sidebar-opt[data-mat-filter="all"]`)?.classList.remove('active');
-          opt.classList.toggle('active');
-        }
+        document.querySelectorAll(`.sidebar-opt${group}`).forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
         filterProducts();
       });
     });
@@ -1215,6 +1210,8 @@
     function filterProducts() {
       const activeCat = document.querySelector('.cat-btn.active')?.dataset.cat || 'all';
       const search = document.getElementById('searchInput').value.toLowerCase();
+      const activeSector = document.querySelector('.sidebar-opt[data-sector-filter].active')?.dataset.sectorFilter || 'all';
+      const activeMat = document.querySelector('.sidebar-opt[data-mat-filter].active')?.dataset.matFilter || 'all';
 
       const cards = document.querySelectorAll('.product-card');
       const catHeaders = document.querySelectorAll('.cat-header');
@@ -1224,11 +1221,15 @@
         const cat = card.dataset.cat || '';
         const name = (card.dataset.name || '').toLowerCase();
         const desc = (card.dataset.desc || '').toLowerCase();
+        const sectors = card.dataset.sectors || '';
+        const mat = card.dataset.mat || '';
 
         const matchCat = activeCat === 'all' || cat === activeCat;
         const matchSearch = !search || name.includes(search) || desc.includes(search);
+        const matchSector = activeSector === 'all' || sectors.split(',').includes(activeSector);
+        const matchMat = activeMat === 'all' || mat === activeMat;
 
-        if (matchCat && matchSearch) {
+        if (matchCat && matchSearch && matchSector && matchMat) {
           card.style.display = '';
           visible++;
         } else {

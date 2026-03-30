@@ -1411,6 +1411,8 @@
       --orange-glow: rgba(224, 88, 32, 0.10);
     }
     [data-theme="light"] .nav { background: rgba(248, 243, 237, 0.97); }
+    [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
+    [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
     [data-theme="light"] body::before { opacity: 0.012; }
     /* Sections with dark image backgrounds — keep white text in both themes */
     [data-theme="light"] .hero {
@@ -1428,7 +1430,7 @@
       color: rgba(245, 237, 224, 0.68);
     }
   </style>
-  <script>if(localStorage.getItem('sapelli-theme')==='light')document.documentElement.dataset.theme='light';</script>
+  <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
 </head>
 <body>
 

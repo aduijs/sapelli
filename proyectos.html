@@ -560,11 +560,42 @@
       scrollbar-color: var(--border) transparent;
     }
     .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+    .modal-carousel { position: relative; overflow: hidden; }
     .modal-img {
       width: 100%;
       height: 420px;
       object-fit: cover;
       display: block;
+      transition: opacity 0.25s ease;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(13,12,11,0.6);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      backdrop-filter: blur(8px);
+      padding: 0;
+    }
+    .carousel-btn:hover { background: rgba(13,12,11,0.85); border-color: rgba(255,255,255,0.35); }
+    .carousel-prev { left: 12px; }
+    .carousel-next { right: 12px; }
+    .carousel-counter {
+      position: absolute;
+      bottom: 12px; right: 12px;
+      background: rgba(13,12,11,0.65);
+      color: rgba(255,255,255,0.85);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(8px);
     }
     .modal-body { padding: 40px; }
     .modal-tag {
@@ -759,6 +790,8 @@
             data-tag="Hotelería · 5 Estrellas"
             data-loc="Miraflores, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4916.jpg"
+            data-folder="hotel-iberostar-lima"
+            data-imgs="DSC_4916.jpg,DSC_4922.jpg,DSC_4925.jpg,DSC_4929.jpg,DSC_4940.jpg,DSC_4944.jpg,DSC_4951.jpg,DSC_5038.jpg"
             data-desc="Equipamiento integral de este hotel 5 estrellas en Miraflores. Habitaciones, lobby, restaurante y áreas comunes con mobiliario a medida diseñado para la cadena Iberostar Hotels &amp; Resorts.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4916.jpg" alt="Iberostar Miraflores" />
             <div class="project-card-overlay"></div>
@@ -775,6 +808,8 @@
             data-tag="Hotelería · 4 Estrellas"
             data-loc="Miraflores, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/holiday_inn/62836.jpg"
+            data-folder="holiday_inn"
+            data-imgs="62836.jpg,62837.jpg,62838.jpg,62839.jpg,62840.jpg,62841.jpg,62842.jpg,62843.jpg"
             data-desc="Equipamiento de habitaciones, lobby y áreas comunes del Holiday Inn Miraflores. Mobiliario funcional y duradero alineado con los estándares IHG.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/holiday_inn/62836.jpg" alt="Holiday Inn Miraflores" />
             <div class="project-card-overlay"></div>
@@ -790,6 +825,8 @@
             data-tag="Hotelería · Lujo"
             data-loc="Miraflores, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/jw-marriott-hotel-lima/62622.jpg"
+            data-folder="jw-marriott-hotel-lima"
+            data-imgs="62622.jpg,62623.jpg,62625.jpg,62626.jpg"
             data-desc="Mobiliario de alto estándar para el JW Marriott Lima, incluyendo habitaciones de lujo, salones y áreas ejecutivas. Cada pieza desarrollada bajo los lineamientos de la marca Marriott International.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/jw-marriott-hotel-lima/62622.jpg" alt="JW Marriott Hotel Lima" />
             <div class="project-card-overlay"></div>
@@ -805,6 +842,8 @@
             data-tag="Hotelería · Business"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62459.jpg"
+            data-folder="hotel-courtyard-by-marriott"
+            data-imgs="62459.jpg,62460.jpg,62461.jpg,62462.jpg,62463.jpg,62464.jpg,62465.jpg,62466.jpg"
             data-desc="Equipamiento integral del Courtyard by Marriott Lima. Habitaciones, restaurante, sala de reuniones y lobby con mobiliario diseñado para el viajero de negocios contemporáneo.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62459.jpg" alt="Courtyard by Marriott" />
             <div class="project-card-overlay"></div>
@@ -821,6 +860,8 @@
             data-tag="Hotelería · Boutique"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/libre-hotel-bw-signature-collection/62589.jpg"
+            data-folder="libre-hotel-bw-signature-collection"
+            data-imgs="62589.jpg,62590.jpg,62592.jpg,62593.jpg,62594.jpg,62595.jpg,62596.jpg,62597.jpg"
             data-desc="Diseño de mobiliario boutique para el Libre Hotel de la colección BW Signature. Piezas únicas que reflejan la identidad contemporánea del hotel.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/libre-hotel-bw-signature-collection/62589.jpg" alt="Libre Hotel BW Signature" />
             <div class="project-card-overlay"></div>
@@ -836,6 +877,8 @@
             data-tag="Hotelería · Apart-hotel"
             data-loc="Bellavista, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/estelar-apartamentos-bellavista/62931.jpg"
+            data-folder="estelar-apartamentos-bellavista"
+            data-imgs="62931.jpg,62932.jpg,62933.jpg,62934.jpg,62935.jpg,62936.jpg,62937.jpg"
             data-desc="Mobiliario para los apartamentos del hotel Estelar Bellavista. Diseño residencial de alta gama adaptado al uso hotelero intensivo, con acabados en madera natural y textiles premium.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/estelar-apartamentos-bellavista/62931.jpg" alt="Estelar Apartamentos Bellavista" />
             <div class="project-card-overlay"></div>
@@ -851,6 +894,8 @@
             data-tag="Hotelería · Economy"
             data-loc="Miraflores, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/ibis_styles/62944.jpg"
+            data-folder="ibis_styles"
+            data-imgs="62944.jpg,62945.jpg,62946.jpg"
             data-desc="Equipamiento completo del Hotel Ibis Style Benavides. Mobiliario funcional y moderno para habitaciones y áreas comunes bajo los estándares de la cadena Accor.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/ibis_styles/62944.jpg" alt="Ibis Style Benavides" />
             <div class="project-card-overlay"></div>
@@ -866,6 +911,8 @@
             data-tag="Hotelería · F&amp;B"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/irish-pub-backus/62451.jpg"
+            data-folder="irish-pub-backus"
+            data-imgs="62451.jpg"
             data-desc="Mobiliario temático para el Irish Pub Backus. Barras, asientos altos, mesas y bancadas diseñadas para evocar la atmósfera auténtica de un pub irlandés con materiales de alta durabilidad.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/irish-pub-backus/62451.jpg" alt="Irish Pub Backus" />
             <div class="project-card-overlay"></div>
@@ -893,6 +940,8 @@
             data-tag="Oficinas · Financiero"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62522.jpg"
+            data-folder="oficinas-financiera-qapaq"
+            data-imgs="62517.jpg,62518.jpg,62519.jpg,62520.jpg,62521.jpg,62522.jpg,62523.jpg,62524.jpg"
             data-desc="Equipamiento integral de las oficinas corporativas de Financiera Qapaq. Puestos de trabajo en open office, salas de reunión, recepción y áreas comunes con mobiliario a medida.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62522.jpg" alt="Financiera Qapaq" />
             <div class="project-card-overlay"></div>
@@ -909,6 +958,8 @@
             data-tag="Oficinas · Banca"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/53991.jpg"
+            data-folder="oficinas-bbva-continental"
+            data-imgs="62445.jpg,62446.jpg,62447.jpg,62448.jpg,62449.jpg,62450.jpg"
             data-desc="Mobiliario corporativo para las oficinas de BBVA Continental. Workstations, salas ejecutivas y áreas de atención al cliente bajo los estándares de diseño global del banco.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/53991.jpg" alt="BBVA Continental" />
             <div class="project-card-overlay"></div>
@@ -924,6 +975,8 @@
             data-tag="Oficinas · Minería"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-mineria-fluor-angloamerican-quellaveco/62375.jpg"
+            data-folder="oficinas-mineria-fluor-angloamerican-quellaveco"
+            data-imgs="62535.jpg,62536.jpg,62537.jpg,62538.jpg,62539.jpg,62540.jpg,62541.jpg,62542.jpg"
             data-desc="Oficinas corporativas para el proyecto minero Quellaveco. Mobiliario técnico y ejecutivo que cumple los altos estándares de Fluor y Angloamerican para entornos de ingeniería.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-mineria-fluor-angloamerican-quellaveco/62375.jpg" alt="Fluor Angloamerican Quellaveco" />
             <div class="project-card-overlay"></div>
@@ -939,6 +992,8 @@
             data-tag="Oficinas · Seguros"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-torre-america/13841.jpg"
+            data-folder="oficinas-rimac-seguros-torre-america"
+            data-imgs="13840.jpg,13841.jpg,13842.jpg,13843.jpg"
             data-desc="Equipamiento de las oficinas de Rimac Seguros en Torre América. Espacios de trabajo modernos y eficientes que reflejan la cultura corporativa de la aseguradora líder del Perú.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-torre-america/13841.jpg" alt="Rimac Seguros Torre América" />
             <div class="project-card-overlay"></div>
@@ -955,6 +1010,8 @@
             data-tag="Oficinas · Seguros"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-paseo-del-parque/13836.jpg"
+            data-folder="oficinas-rimac-seguros-paseo-del-parque"
+            data-imgs="13836.jpg,13837.jpg,13838.jpg,13839.jpg"
             data-desc="Segunda sede de Rimac Seguros en el complejo Paseo del Parque. Continuidad de la identidad corporativa con soluciones de mobiliario adaptadas al nuevo espacio.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-paseo-del-parque/13836.jpg" alt="Rimac Seguros Paseo del Parque" />
             <div class="project-card-overlay"></div>
@@ -970,6 +1027,8 @@
             data-tag="Oficinas · Arquitectura"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-estudio-padilla-chang/62554.png"
+            data-folder="oficinas-estudio-padilla-chang"
+            data-imgs="62543.png,62544.png,62545.png,62546.png,62547.png,62549.png,62550.png,62551.png"
             data-desc="Oficinas del Estudio Padilla Chang, reconocido estudio de arquitectura limeño. Mobiliario a medida que refleja el rigor y la estética refinada del estudio.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-estudio-padilla-chang/62554.png" alt="Estudio Padilla Chang" />
             <div class="project-card-overlay"></div>
@@ -986,6 +1045,8 @@
             data-tag="Oficinas · Salud"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficina-diagnostica-peruana/62565.jpg"
+            data-folder="oficina-diagnostica-peruana"
+            data-imgs="62559.jpg,62560.jpg,62561.jpg,62562.jpg,62563.jpg,62564.jpg,62565.jpg,62566.jpg"
             data-desc="Mobiliario administrativo y de recepción para las oficinas de Diagnóstica Peruana. Diseño limpio y funcional alineado con el entorno sanitario.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficina-diagnostica-peruana/62565.jpg" alt="Diagnóstica Peruana" />
             <div class="project-card-overlay"></div>
@@ -1001,6 +1062,8 @@
             data-tag="Oficinas · Tecnología"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficina-zilicom-group/62631.jpg"
+            data-folder="oficina-zilicom-group"
+            data-imgs="62631.jpg,62632.jpg,62633.jpg,62634.jpg,62635.jpg,62636.jpg,62637.jpg"
             data-desc="Oficinas de la empresa tecnológica Zilicom Group. Espacios de trabajo ágiles y colaborativos con mobiliario modular adaptable a diferentes configuraciones de equipo.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficina-zilicom-group/62631.jpg" alt="Zilicom Group" />
             <div class="project-card-overlay"></div>
@@ -1016,6 +1079,8 @@
             data-tag="Oficinas · Corporativo"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-aqua-rill/62830.jpg"
+            data-folder="oficinas-aqua-rill"
+            data-imgs="62801.jpg,62802.jpg,62803.jpg,62804.jpg,62805.jpg,62806.jpg,62807.jpg,62808.jpg"
             data-desc="Diseño y fabricación de mobiliario para las oficinas corporativas de Aqua Ril. Puestos de trabajo ergonómicos, salas de reunión y áreas de descanso con acabados contemporáneos.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-aqua-rill/62830.jpg" alt="Oficinas Aqua Ril" />
             <div class="project-card-overlay"></div>
@@ -1032,6 +1097,8 @@
             data-tag="Oficinas · Salud"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-clinica-delgado/62616.jpg"
+            data-folder="oficinas-clinica-delgado"
+            data-imgs="62607.jpg,62608.jpg,62609.jpg,62610.jpg,62611.jpg,62612.jpg,62613.jpg,62614.jpg"
             data-desc="Equipamiento de las oficinas administrativas de Clínica Delgado AUNA. Mobiliario corporativo eficiente complementario al equipamiento clínico del mismo complejo.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-clinica-delgado/62616.jpg" alt="Oficinas Clínica Delgado" />
             <div class="project-card-overlay"></div>
@@ -1047,6 +1114,8 @@
             data-tag="Oficinas · Finanzas"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-amg-financial-group/62432.jpg"
+            data-folder="oficinas-amg-financial-group"
+            data-imgs="62415.jpg,62416.jpg,62417.jpg,62418.jpg,62419.jpg,62420.jpg,62421.jpg,62422.jpg"
             data-desc="Oficinas del grupo financiero AMG. Diseño ejecutivo de alto nivel con materiales nobles, salas de directorio y espacios de representación que transmiten solidez institucional.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-amg-financial-group/62432.jpg" alt="AMG Financial Group" />
             <div class="project-card-overlay"></div>
@@ -1063,6 +1132,8 @@
             data-tag="Oficinas · Coworking"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-king-coworking/62499.jpg"
+            data-folder="oficinas-king-coworking"
+            data-imgs="62484.jpg,62485.jpg,62486.jpg,62487.jpg,62488.jpg,62490.jpg,62491.jpg,62492.jpg"
             data-desc="Mobiliario flexible para el espacio de coworking King. Mesas comunales, cabinas individuales, salas privadas y áreas de descanso diseñadas para la productividad y el confort.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-king-coworking/62499.jpg" alt="King Coworking" />
             <div class="project-card-overlay"></div>
@@ -1078,6 +1149,8 @@
             data-tag="Oficinas · Agroindustria"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-camposol-planta-la-cruz/53992.jpg"
+            data-folder="oficinas-camposol-planta-la-cruz"
+            data-imgs="62627.jpg,62628.jpg,62629.jpg,62630.jpg"
             data-desc="Oficinas corporativas del gigante agroindustrial Camposol en su planta La Cruz. Mobiliario robusto y funcional para entornos de operación intensiva.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-camposol-planta-la-cruz/53992.jpg" alt="Camposol Planta La Cruz" />
             <div class="project-card-overlay"></div>
@@ -1093,6 +1166,8 @@
             data-tag="Oficinas · Construcción"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-constructora-las-vinas/62835.jpg"
+            data-folder="oficinas-constructora-las-vinas"
+            data-imgs="62795.jpg,62796.jpg,62797.jpg,62798.jpg,62799.jpg,62800.jpg"
             data-desc="Equipamiento de oficinas para Constructora Las Viñas. Espacios de proyecto, sala de planos y dirección ejecutiva con mobiliario duradero y profesional.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-constructora-las-vinas/62835.jpg" alt="Constructora Las Viñas" />
             <div class="project-card-overlay"></div>
@@ -1109,6 +1184,8 @@
             data-tag="Oficinas · Gobierno"
             data-loc="San Luis, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-sunat-san-luis/18581.jpg"
+            data-folder="oficinas-sunat-san-luis"
+            data-imgs="62645.jpg,62646.jpg,62647.jpg,62648.jpg,62649.jpg,62650.jpg,62651.jpg,62652.jpg"
             data-desc="Mobiliario institucional para la sede de SUNAT en San Luis. Puestos de atención al contribuyente, back office y dirección con estándares de ergonomía y funcionalidad pública.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-sunat-san-luis/18581.jpg" alt="SUNAT San Luis" />
             <div class="project-card-overlay"></div>
@@ -1124,6 +1201,8 @@
             data-tag="Oficinas · Software"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-licencias-online/13880.jpg"
+            data-folder="oficinas-licencias-online"
+            data-imgs="62672.jpg,62673.jpg,62674.jpg,62675.jpg,62676.jpg,62677.jpg,62678.jpg,62679.jpg"
             data-desc="Oficinas de la empresa de software Licencias Online. Ambiente dinámico y tecnológico con mobiliario colaborativo que fomenta la innovación y el trabajo en equipo.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-licencias-online/13880.jpg" alt="Licencias Online" />
             <div class="project-card-overlay"></div>
@@ -1140,6 +1219,8 @@
             data-tag="Oficinas · Corporativo"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-buro-edificio-amalfi/13811.jpg"
+            data-folder="oficinas-buro-edificio-amalfi"
+            data-imgs="13808.jpg,13809.jpg,13810.jpg,13811.jpg"
             data-desc="Equipamiento de las oficinas Buro en el Edificio Amalfi. Diseño contemporáneo con mobiliario de alta calidad para un entorno profesional premium.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-buro-edificio-amalfi/13811.jpg" alt="Buro Edificio Amalfi" />
             <div class="project-card-overlay"></div>
@@ -1155,6 +1236,8 @@
             data-tag="Oficinas · Tecnología"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-data-tools/13871.jpg"
+            data-folder="oficinas-data-tools"
+            data-imgs="62687.jpg,62688.jpg,62689.jpg,62690.jpg,62691.jpg,62692.jpg,62694.jpg,62695.jpg"
             data-desc="Oficinas de Data Tools. Estaciones de trabajo técnicas, salas de servidor y espacios de gestión equipados con mobiliario especializado para entornos IT.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-data-tools/13871.jpg" alt="Data Tools" />
             <div class="project-card-overlay"></div>
@@ -1170,6 +1253,8 @@
             data-tag="Oficinas · Gobierno"
             data-loc="Paita, Piura"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-aduanas-paita/13847.jpg"
+            data-folder="oficinas-aduanas-paita"
+            data-imgs="13844.jpg,13845.jpg,13847.jpg,19406.jpg"
             data-desc="Mobiliario institucional para la Aduana de Paita — SUNAT. Puestos operativos, salas de control e instalaciones administrativas para el complejo aduanero portuario.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-aduanas-paita/13847.jpg" alt="SUNAT Aduana Paita" />
             <div class="project-card-overlay"></div>
@@ -1186,6 +1271,8 @@
             data-tag="Oficinas · Construcción"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-pevoex-contratistas-edificio-capital-golf/13832.jpg"
+            data-folder="oficinas-pevoex-contratistas-edificio-capital-golf"
+            data-imgs="13832.jpg,62699.jpg,62700.jpg,62701.jpg,62702.jpg,62703.jpg,62704.jpg,62705.jpg"
             data-desc="Oficinas de Pevoex Contratistas en el Edificio Capital Golf. Mobiliario ejecutivo y de proyecto para la empresa contratista especializada en obra civil.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-pevoex-contratistas-edificio-capital-golf/13832.jpg" alt="Pevoex Capital Golf" />
             <div class="project-card-overlay"></div>
@@ -1201,6 +1288,8 @@
             data-tag="Oficinas · Transporte"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bus-portal/13858.jpg"
+            data-folder="oficinas-bus-portal"
+            data-imgs="62721.jpg,62722.jpg,62723.jpg,62724.jpg,62923.jpg"
             data-desc="Equipamiento del terminal y oficinas de Bus Portal. Mobiliario funcional para áreas de venta, sala de espera y administración del terminal de buses.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bus-portal/13858.jpg" alt="Bus Portal" />
             <div class="project-card-overlay"></div>
@@ -1217,6 +1306,8 @@
             data-tag="Oficinas · Climatización"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-daikin-peru-edificio-capital-derby/13866.jpg"
+            data-folder="oficinas-daikin-peru-edificio-capital-derby"
+            data-imgs="62725.jpg,62726.jpg,62727.jpg,62728.jpg,62729.jpg,62730.jpg,62731.jpg"
             data-desc="Oficinas de Daikin Perú en el Edificio Capital Derby. Espacios corporativos modernos con mobiliario que refleja la innovación tecnológica de la marca líder en climatización.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-daikin-peru-edificio-capital-derby/13866.jpg" alt="Daikin Perú Capital Derby" />
             <div class="project-card-overlay"></div>
@@ -1243,6 +1334,8 @@
             data-tag="Salud · Clínica"
             data-loc="Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-delgado-auna/62658.jpg"
+            data-folder="salud-clinica-delgado-auna"
+            data-imgs="62655.jpg,62656.jpg,62657.jpg,62658.jpg,62659.jpg,62660.jpg,62661.jpg,62662.jpg"
             data-desc="Equipamiento integral de Clínica Delgado AUNA, una de las clínicas privadas más importantes del Perú. Mobiliario de habitaciones, consultorios, áreas de espera y recepción que cumplen las más exigentes normativas sanitarias.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-delgado-auna/62658.jpg" alt="Clínica Delgado AUNA" />
             <div class="project-card-overlay"></div>
@@ -1258,6 +1351,8 @@
             data-tag="Salud · Clínica"
             data-loc="Surco, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-sanna-chacarilla/20071.jpg"
+            data-folder="salud-sanna-chacarilla"
+            data-imgs="62683.jpg,62684.jpg,62685.jpg,62686.jpg"
             data-desc="Mobiliario para la clínica Sanna Chacarilla. Espacios de consulta, salas de espera y áreas de recuperación diseñados para transmitir bienestar y confianza al paciente.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-sanna-chacarilla/20071.jpg" alt="Sanna Chacarilla" />
             <div class="project-card-overlay"></div>
@@ -1273,6 +1368,8 @@
             data-tag="Salud · Clínica"
             data-loc="Santa Anita, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-internacional-santa-anita/13821.jpg"
+            data-folder="salud-clinica-internacional-santa-anita"
+            data-imgs="62732.jpg,62733.jpg,62734.jpg,62735.jpg,62736.jpg,62737.jpg,62738.jpg,62739.jpg"
             data-desc="Equipamiento de la nueva sede de Clínica Internacional en Santa Anita. Mobiliario hospitalario de alta durabilidad para consultorios, salas de espera y áreas administrativas.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-internacional-santa-anita/13821.jpg" alt="Clínica Internacional Santa Anita" />
             <div class="project-card-overlay"></div>
@@ -1288,6 +1385,8 @@
             data-tag="Salud · Clínica"
             data-loc="Bellavista, Callao"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-internacional-bellavista/13818.jpg"
+            data-folder="salud-clinica-internacional-bellavista"
+            data-imgs="62732.jpg,62733.jpg,62734.jpg,62735.jpg,62736.jpg,62737.jpg,62738.jpg,62739.jpg"
             data-desc="Mobiliario para la sede de Clínica Internacional en Bellavista. Soluciones integrales de equipamiento que garantizan higiene, durabilidad y confort para pacientes y personal médico.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-internacional-bellavista/13818.jpg" alt="Clínica Internacional Bellavista" />
             <div class="project-card-overlay"></div>
@@ -1314,6 +1413,8 @@
             data-tag="Multifamiliar · Residencial"
             data-loc="Barranco, Lima"
             data-img="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/multifamiliar-299-barranco/62917.jpg"
+            data-folder="multifamiliar-299-barranco"
+            data-imgs="62914.jpg,62915.jpg,62916.jpg,62917.jpg"
             data-desc="Equipamiento residencial del proyecto Espacio 299 en Barranco. Mobiliario de áreas comunes, lobby y espacios de uso compartido diseñado para la vida contemporánea en el corazón del distrito cultural de Lima.">
             <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/multifamiliar-299-barranco/62917.jpg" alt="Espacio 299 Barranco" />
             <div class="project-card-overlay"></div>
@@ -1408,7 +1509,16 @@
   <div class="modal-backdrop" id="modal" onclick="closeModal(event)">
     <div class="modal-wrap">
       <div class="modal" id="modalBox">
-        <img class="modal-img" id="modalImg" src="" alt="" />
+        <div class="modal-carousel">
+          <img class="modal-img" id="modalImg" src="" alt="" />
+          <button class="carousel-btn carousel-prev" id="carouselPrev" onclick="event.stopPropagation();carouselPrev()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="carousel-btn carousel-next" id="carouselNext" onclick="event.stopPropagation();carouselNext()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="carousel-counter" id="carouselCounter"></div>
+        </div>
         <button class="modal-close" onclick="closeModalBtn()">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -1445,25 +1555,47 @@
       });
     });
 
-    // ── Modal ──
+    // ── Modal + Carousel ──
+    const CDN = 'https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/';
+    let carouselImgs = [];
+    let carouselIdx = 0;
+
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('click', () => {
         const d = card.dataset;
-        document.getElementById('modalImg').src = d.img;
-        document.getElementById('modalImg').alt = d.name;
+        const folder = d.folder || '';
+        const imgs = d.imgs ? d.imgs.split(',') : [];
+        carouselImgs = imgs.length > 0
+          ? imgs.map(f => CDN + folder + '/' + f)
+          : [d.img];
+        carouselIdx = 0;
+        updateCarousel();
         document.getElementById('modalTag').textContent = d.tag;
         document.getElementById('modalName').textContent = d.name;
         document.getElementById('modalDesc').textContent = d.desc;
         document.getElementById('modalMeta').innerHTML = `
-          <div class="modal-meta-item"><label>Ubicación</label><span>${d.loc}</span></div>
-          <div class="modal-meta-item"><label>Año</label><span>${d.year}</span></div>
-          <div class="modal-meta-item"><label>Superficie</label><span>${d.area}</span></div>
-          <div class="modal-meta-item"><label>Piezas entregadas</label><span>${d.piezas}</span></div>
+          <div class="modal-meta-item"><label>Ubicación</label><span>${d.loc || ''}</span></div>
         `;
         document.getElementById('modal').classList.add('open');
         document.body.style.overflow = 'hidden';
       });
     });
+
+    function updateCarousel() {
+      document.getElementById('modalImg').src = carouselImgs[carouselIdx];
+      const n = carouselImgs.length;
+      document.getElementById('carouselCounter').textContent = n > 1 ? (carouselIdx + 1) + ' / ' + n : '';
+      document.getElementById('carouselPrev').style.display = n > 1 ? '' : 'none';
+      document.getElementById('carouselNext').style.display = n > 1 ? '' : 'none';
+    }
+    function carouselPrev() {
+      carouselIdx = (carouselIdx - 1 + carouselImgs.length) % carouselImgs.length;
+      updateCarousel();
+    }
+    function carouselNext() {
+      carouselIdx = (carouselIdx + 1) % carouselImgs.length;
+      updateCarousel();
+    }
 
     function closeModal(e) {
       if (e.target === document.getElementById('modal')) closeModalBtn();
@@ -1472,7 +1604,11 @@
       document.getElementById('modal').classList.remove('open');
       document.body.style.overflow = '';
     }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModalBtn();
+      if (e.key === 'ArrowLeft') carouselPrev();
+      if (e.key === 'ArrowRight') carouselNext();
+    });
 
     // ── Theme ──
     function toggleTheme() {

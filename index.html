@@ -2190,12 +2190,15 @@
     // ── Nav scroll state ──
     window.addEventListener('scroll', () => {
       const nav = document.querySelector('.nav');
+      const isLight = document.documentElement.dataset.theme === 'light';
       if (window.scrollY > 60) {
-        nav.style.background = 'rgba(13,12,11,0.97)';
-        nav.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+        nav.style.background = isLight ? 'rgba(248,243,237,0.98)' : 'rgba(13,12,11,0.97)';
+        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.08)' : 'rgba(255,255,255,0.08)';
       } else {
-        nav.style.background = 'linear-gradient(to bottom, rgba(13,12,11,0.95) 0%, transparent 100%)';
-        nav.style.borderBottomColor = 'rgba(255,255,255,0.07)';
+        nav.style.background = isLight
+          ? 'rgba(248,243,237,0.6)'
+          : 'linear-gradient(to bottom, rgba(13,12,11,0.95) 0%, transparent 100%)';
+        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.05)' : 'rgba(255,255,255,0.07)';
       }
     });
 

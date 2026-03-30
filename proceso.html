@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestro Proceso — Sapelli Mobiliario</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --orange:      #E05820;
+      --orange-dark: #B8481A;
+      --orange-glow: rgba(224, 88, 32, 0.18);
+      --ink:         #0D0C0B;
+      --ink-2:       #181614;
+      --ink-3:       #242220;
+      --surface:     #1E1C1A;
+      --border:      rgba(255,255,255,0.07);
+      --border-warm: rgba(224, 88, 32, 0.25);
+      --text:        #F5EDE0;
+      --text-soft:   rgba(245, 237, 224, 0.65);
+      --text-muted:  rgba(245, 237, 224, 0.38);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'DM Sans', system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1000;
+      pointer-events: none; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 0 48px; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,12,11,0.96);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-soft); transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-cta {
+      padding: 10px 24px; background: var(--orange); color: #fff !important;
+      border-radius: 3px; font-size: 12px !important;
+      box-shadow: 0 2px 16px rgba(224,88,32,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(224,88,32,0.35); }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-soft);
+      cursor: pointer; width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s ease, border-color 0.2s ease; flex-shrink: 0; padding: 0;
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--text-soft); }
+    .theme-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --ink: #F8F3ED; --ink-2: #F0E9DF; --ink-3: #E8DFD2;
+      --surface: #EDE4D6;
+      --border: rgba(13,12,11,0.10); --border-warm: rgba(224, 88, 32, 0.30);
+      --text: #0D0C0B; --text-soft: rgba(13, 12, 11, 0.58); --text-muted: rgba(13, 12, 11, 0.35);
+      --orange-glow: rgba(224, 88, 32, 0.10);
+    }
+    [data-theme="light"] .nav { background: rgba(248, 243, 237, 0.97); }
+    [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
+    [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
+    [data-theme="light"] body::before { opacity: 0.012; }
+    [data-theme="light"] .page-header { --text: #F5EDE0; --text-soft: rgba(245,237,224,0.72); --text-muted: rgba(245,237,224,0.42); }
+    [data-theme="light"] .fase-visual { filter: none; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative; padding: 160px 0 100px; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62520.jpg') center/cover no-repeat;
+      filter: brightness(0.25) grayscale(30%);
+    }
+    .page-header-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(13,12,11,0.5) 0%, rgba(13,12,11,0.95) 100%);
+    }
+    .page-header-content {
+      position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    }
+    .breadcrumb {
+      font-size: 12px; color: var(--text-muted); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { transition: color 0.2s ease; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb-sep { color: var(--text-muted); }
+    .page-title {
+      font-family: var(--ff-display); font-size: clamp(44px, 5vw, 72px);
+      font-weight: 300; line-height: 1.08; letter-spacing: -0.02em;
+      max-width: 680px; margin-bottom: 20px;
+    }
+    .page-title em { font-style: italic; color: var(--orange); }
+    .page-subtitle {
+      font-size: 17px; font-weight: 300; color: var(--text-soft);
+      max-width: 540px; line-height: 1.75;
+    }
+
+    /* ── JOURNEY PROGRESS ── */
+    .journey-progress {
+      position: sticky; top: 72px; z-index: 800;
+      background: var(--ink-2); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    [data-theme="light"] .journey-progress { background: rgba(240,233,223,0.97); }
+    .journey-progress-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: flex; align-items: stretch; gap: 0;
+    }
+    .jp-step {
+      flex: 1; padding: 16px 12px; display: flex; align-items: center; gap: 12px;
+      cursor: pointer; border-bottom: 2px solid transparent;
+      transition: border-color 0.3s ease, background 0.3s ease;
+      text-decoration: none;
+    }
+    .jp-step:hover { background: var(--orange-glow); }
+    .jp-step.active { border-bottom-color: var(--orange); }
+    .jp-num {
+      font-family: var(--ff-display); font-size: 20px; font-weight: 300;
+      color: var(--text-muted); width: 32px; text-align: center;
+      transition: color 0.3s ease;
+    }
+    .jp-step.active .jp-num, .jp-step:hover .jp-num { color: var(--orange); }
+    .jp-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      transition: color 0.3s ease; white-space: nowrap;
+    }
+    .jp-step.active .jp-label, .jp-step:hover .jp-label { color: var(--text); }
+
+    /* ── FASE SECTIONS ── */
+    .fase {
+      padding: 120px 0; border-bottom: 1px solid var(--border);
+      scroll-margin-top: 130px;
+    }
+    .fase:nth-child(even) { background: var(--ink-2); }
+    .fase-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .fase:nth-child(even) .fase-inner { direction: rtl; }
+    .fase:nth-child(even) .fase-inner > * { direction: ltr; }
+
+    .fase-content {}
+    .fase-num {
+      display: inline-flex; align-items: center; gap: 16px;
+      font-family: var(--ff-display); font-size: 14px; font-weight: 400;
+      color: var(--orange); margin-bottom: 20px; letter-spacing: 0.05em;
+    }
+    .fase-num::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--orange);
+    }
+    .fase-title {
+      font-family: var(--ff-display); font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300; line-height: 1.12; letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .fase-title em { font-style: italic; color: var(--orange); }
+    .fase-desc {
+      font-size: 15px; font-weight: 300; color: var(--text-soft);
+      line-height: 1.85; margin-bottom: 40px;
+    }
+
+    .fase-deliverables {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .deliverable {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 20px 24px; border: 1px solid var(--border); border-radius: 4px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .deliverable:hover { border-color: var(--border-warm); background: var(--orange-glow); }
+    .deliverable-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--orange-glow); border: 1px solid var(--border-warm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); flex-shrink: 0;
+    }
+    .deliverable-text {}
+    .deliverable-name {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      margin-bottom: 3px; letter-spacing: 0.02em;
+    }
+    .deliverable-desc {
+      font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    /* ── FASE VISUAL ── */
+    .fase-visual {
+      position: relative; border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .fase-visual img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.8) saturate(0.85);
+      transition: transform 0.7s var(--ease-out-expo);
+    }
+    .fase:hover .fase-visual img { transform: scale(1.04); }
+    .fase-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(224,88,32,0.08) 0%, transparent 60%);
+    }
+    .fase-visual-badge {
+      position: absolute; bottom: 20px; left: 20px;
+      background: rgba(13,12,11,0.75); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+      padding: 10px 18px; display: flex; align-items: center; gap: 10px;
+    }
+    .fase-visual-badge-num {
+      font-family: var(--ff-display); font-size: 28px; font-weight: 300; color: var(--orange);
+    }
+    .fase-visual-badge-text {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.7);
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      padding: 100px 0; background: var(--ink); text-align: center;
+    }
+    .timeline-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    }
+    .timeline-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
+    }
+    .timeline-label::before, .timeline-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .timeline-title {
+      font-family: var(--ff-display); font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300; line-height: 1.15; margin-bottom: 16px;
+    }
+    .timeline-title em { font-style: italic; color: var(--orange); }
+    .timeline-sub {
+      font-size: 15px; color: var(--text-soft); max-width: 480px;
+      margin: 0 auto 64px; line-height: 1.8;
+    }
+    .timeline-bar {
+      display: flex; align-items: stretch; gap: 3px; margin-bottom: 48px;
+    }
+    .timeline-block {
+      flex: 1; padding: 24px 16px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 3px;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .timeline-block:hover { border-color: var(--border-warm); background: var(--orange-glow); }
+    .timeline-block-week {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 6px;
+    }
+    .timeline-block-name {
+      font-family: var(--ff-display); font-size: 18px; font-weight: 400;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .timeline-block-dur {
+      font-size: 11px; color: var(--text-muted);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--ink-2); border-top: 1px solid var(--border);
+      padding: 96px 0; text-align: center;
+    }
+    .cta-inner { max-width: 600px; margin: 0 auto; padding: 0 48px; }
+    .cta-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 24px;
+    }
+    .cta-label::before, .cta-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .cta-title {
+      font-family: var(--ff-display); font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300; line-height: 1.1; margin-bottom: 20px;
+    }
+    .cta-title em { font-style: italic; color: var(--orange); }
+    .cta-body {
+      font-size: 15px; font-weight: 300; color: var(--text-soft);
+      line-height: 1.8; margin-bottom: 40px;
+    }
+    .cta-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 36px; background: var(--orange); color: #fff;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; border-radius: 3px;
+      box-shadow: 0 4px 24px rgba(224,88,32,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(224,88,32,0.45); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 0; color: var(--text-soft); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-ghost:hover { color: var(--text); border-color: var(--text-soft); }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--ink); border-top: 1px solid var(--border); padding: 64px 0 32px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-brand img { height: 32px; margin-bottom: 20px; }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 14px; color: var(--text-soft); transition: color 0.2s ease; }
+    .footer-col a:hover { color: var(--orange); }
+    .footer-bottom { padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s var(--ease-out-expo); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .stagger > * { opacity: 0; transform: translateY(28px); transition: opacity 0.5s ease, transform 0.5s var(--ease-out-expo); }
+    .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
+    .stagger.visible > *:nth-child(5) { transition-delay: 0.33s; }
+    .stagger.visible > * { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav { padding: 0 24px; }
+      .page-header-content { padding: 48px 24px 40px; }
+      .fase-inner { grid-template-columns: 1fr; gap: 48px; }
+      .fase:nth-child(even) .fase-inner { direction: ltr; }
+      .journey-progress-inner { overflow-x: auto; }
+      .jp-step { min-width: 120px; }
+      .timeline-bar { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .cta-inner, .timeline-inner, .footer-inner { padding: 0 24px; }
+    }
+  </style>
+  <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#nosotros">Nosotros</a></li>
+      <li><a href="sectores.html">Sectores</a></li>
+      <li><a href="catalogo.html">Productos</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="index.html#contacto" class="nav-cta">Cotizar Proyecto</a></li>
+      <li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-gradient"></div>
+    <div class="page-header-content">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Nuestro Proceso</span>
+      </div>
+      <h1 class="page-title">Del concepto a la<br /><em>instalación</em></h1>
+      <p class="page-subtitle">Cinco fases que transforman su visión en mobiliario real. Un proceso transparente, colaborativo y con entregas claras en cada etapa.</p>
+    </div>
+  </header>
+
+  <!-- JOURNEY PROGRESS -->
+  <div class="journey-progress">
+    <div class="journey-progress-inner">
+      <a class="jp-step active" href="#brief" data-target="brief">
+        <div class="jp-num">01</div>
+        <div class="jp-label">Brief</div>
+      </a>
+      <a class="jp-step" href="#diseno" data-target="diseno">
+        <div class="jp-num">02</div>
+        <div class="jp-label">Diseño</div>
+      </a>
+      <a class="jp-step" href="#fabricacion" data-target="fabricacion">
+        <div class="jp-num">03</div>
+        <div class="jp-label">Fabricación</div>
+      </a>
+      <a class="jp-step" href="#logistica" data-target="logistica">
+        <div class="jp-num">04</div>
+        <div class="jp-label">Logística</div>
+      </a>
+      <a class="jp-step" href="#instalacion" data-target="instalacion">
+        <div class="jp-num">05</div>
+        <div class="jp-label">Instalación</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FASE SECTIONS -->
+  <div class="fases">
+
+    <!-- FASE 01 -->
+    <section class="fase" id="brief">
+      <div class="fase-inner">
+        <div class="fase-content fade-up">
+          <div class="fase-num">Fase 01</div>
+          <h2 class="fase-title">Brief &amp; <em>Diagnóstico</em></h2>
+          <p class="fase-desc">Todo gran proyecto empieza por escuchar. Visitamos su espacio, entendemos su marca, su operación y sus necesidades funcionales. Antes de dibujar una sola línea, nos aseguramos de comprender a fondo los desafíos y las oportunidades de su proyecto.</p>
+          <div class="fase-deliverables stagger">
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Visita técnica al sitio</div>
+                <div class="deliverable-desc">Relevamiento fotográfico, medición de espacios y evaluación de accesos para instalación.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Documento de requerimientos</div>
+                <div class="deliverable-desc">Brief funcional detallado: cantidad de piezas, especificaciones técnicas, restricciones y plazos.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Estimación presupuestaria</div>
+                <div class="deliverable-desc">Rango de inversión por línea de producto para alinear expectativas desde el día uno.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fase-visual fade-up">
+          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62524.jpg" alt="Brief y diagnóstico — reunión de trabajo" />
+          <div class="fase-visual-overlay"></div>
+          <div class="fase-visual-badge">
+            <div class="fase-visual-badge-num">1–2</div>
+            <div class="fase-visual-badge-text">Semanas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 02 -->
+    <section class="fase" id="diseno">
+      <div class="fase-inner">
+        <div class="fase-content fade-up">
+          <div class="fase-num">Fase 02</div>
+          <h2 class="fase-title">Diseño &amp; <em>Propuesta</em></h2>
+          <p class="fase-desc">Traducimos el brief en soluciones concretas. Nuestro equipo de diseño desarrolla planos técnicos, renders fotorrealistas 3D y selecciones de materiales para que pueda visualizar y validar cada detalle antes de comprometer la producción.</p>
+          <div class="fase-deliverables stagger">
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Planos técnicos y layouts</div>
+                <div class="deliverable-desc">Distribución de mobiliario sobre plano arquitectónico con cotas, circulaciones y zonas de uso.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Renders 3D fotorrealistas</div>
+                <div class="deliverable-desc">Visualizaciones del espacio amueblado desde múltiples ángulos para aprobación del cliente.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 4l8 8 8-8"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Muestras de materiales</div>
+                <div class="deliverable-desc">Tablero físico con muestras reales de maderas, tapizados, acabados y herrajes seleccionados.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fase-visual fade-up">
+          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-estudio-padilla-chang/62543.png" alt="Diseño y propuesta — render 3D" />
+          <div class="fase-visual-overlay"></div>
+          <div class="fase-visual-badge">
+            <div class="fase-visual-badge-num">2–3</div>
+            <div class="fase-visual-badge-text">Semanas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 03 -->
+    <section class="fase" id="fabricacion">
+      <div class="fase-inner">
+        <div class="fase-content fade-up">
+          <div class="fase-num">Fase 03</div>
+          <h2 class="fase-title">Fabricación <em>industrial</em></h2>
+          <p class="fase-desc">En nuestra planta de 2,500 m² en Villa el Salvador operamos con maquinaria CNC de SCM Group. Cada pieza pasa por centros de mecanizado, canteado, tapizado y acabado con control de calidad riguroso en cada estación. Industrializamos la escala sin sacrificar el detalle artesanal.</p>
+          <div class="fase-deliverables stagger">
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Corte y mecanizado CNC</div>
+                <div class="deliverable-desc">Precisión milimétrica con centros Morbidelli X100 y CX110 de última generación.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Control de calidad por estación</div>
+                <div class="deliverable-desc">Inspección dimensional, de acabado y de resistencia en cada etapa del proceso productivo.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Reporte fotográfico de avance</div>
+                <div class="deliverable-desc">Registro visual semanal del proceso de fabricación enviado directamente al cliente.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fase-visual fade-up">
+          <img src="Assets/industrial_bg.jpg" alt="Fabricación — planta CNC Sapelli" />
+          <div class="fase-visual-overlay"></div>
+          <div class="fase-visual-badge">
+            <div class="fase-visual-badge-num">4–6</div>
+            <div class="fase-visual-badge-text">Semanas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 04 -->
+    <section class="fase" id="logistica">
+      <div class="fase-inner">
+        <div class="fase-content fade-up">
+          <div class="fase-num">Fase 04</div>
+          <h2 class="fase-title">Logística &amp; <em>coordinación</em></h2>
+          <p class="fase-desc">Cada pieza se embala con protección específica según material y destino. Coordinamos con la obra el cronograma de entregas, accesos y secuencia de instalación para minimizar tiempos muertos y evitar interferencias con otros gremios.</p>
+          <div class="fase-deliverables stagger">
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Embalaje técnico protegido</div>
+                <div class="deliverable-desc">Materiales de protección adaptados por pieza: espuma, cartón corrugado y film stretch.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Cronograma de entregas</div>
+                <div class="deliverable-desc">Planificación por zona y fase del proyecto, sincronizada con el avance de obra.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Cobertura nacional</div>
+                <div class="deliverable-desc">Entregas en todo el Perú con flota propia en Lima y aliados logísticos en provincias.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fase-visual fade-up">
+          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62466.jpg" alt="Logística — entrega de mobiliario" />
+          <div class="fase-visual-overlay"></div>
+          <div class="fase-visual-badge">
+            <div class="fase-visual-badge-num">1–2</div>
+            <div class="fase-visual-badge-text">Semanas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 05 -->
+    <section class="fase" id="instalacion">
+      <div class="fase-inner">
+        <div class="fase-content fade-up">
+          <div class="fase-num">Fase 05</div>
+          <h2 class="fase-title">Instalación &amp; <em>Postventa</em></h2>
+          <p class="fase-desc">Nuestro equipo de instalación se encarga del montaje final en sitio, la verificación de cada pieza y el protocolo de entrega al cliente. Una vez inaugurado el espacio, activamos nuestro programa de garantía y soporte postventa para asegurar su satisfacción a largo plazo.</p>
+          <div class="fase-deliverables stagger">
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Instalación profesional</div>
+                <div class="deliverable-desc">Equipo especializado con herramientas propias, sin depender de terceros ni de la obra.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Protocolo de entrega</div>
+                <div class="deliverable-desc">Acta de conformidad por zona con registro fotográfico de cada ambiente entregado.</div>
+              </div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </div>
+              <div class="deliverable-text">
+                <div class="deliverable-name">Garantía y soporte postventa</div>
+                <div class="deliverable-desc">12 meses de garantía estructural, soporte técnico y servicio de mantenimiento preventivo.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fase-visual fade-up">
+          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4940.jpg" alt="Instalación — resultado final Iberostar" />
+          <div class="fase-visual-overlay"></div>
+          <div class="fase-visual-badge">
+            <div class="fase-visual-badge-num">1–2</div>
+            <div class="fase-visual-badge-text">Semanas</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- TIMELINE SUMMARY -->
+  <section class="timeline-section">
+    <div class="timeline-inner">
+      <div class="timeline-label">Línea de tiempo típica</div>
+      <h2 class="timeline-title">De inicio a <em>inauguración</em></h2>
+      <p class="timeline-sub">Un proyecto estándar toma entre 10 y 15 semanas desde la primera reunión hasta la entrega final instalada.</p>
+      <div class="timeline-bar stagger">
+        <div class="timeline-block">
+          <div class="timeline-block-week">Semana 1–2</div>
+          <div class="timeline-block-name">Brief</div>
+          <div class="timeline-block-dur">Diagnóstico y requerimientos</div>
+        </div>
+        <div class="timeline-block">
+          <div class="timeline-block-week">Semana 3–5</div>
+          <div class="timeline-block-name">Diseño</div>
+          <div class="timeline-block-dur">Planos, renders y materiales</div>
+        </div>
+        <div class="timeline-block">
+          <div class="timeline-block-week">Semana 6–11</div>
+          <div class="timeline-block-name">Fabricación</div>
+          <div class="timeline-block-dur">Producción CNC y acabados</div>
+        </div>
+        <div class="timeline-block">
+          <div class="timeline-block-week">Semana 12–13</div>
+          <div class="timeline-block-name">Logística</div>
+          <div class="timeline-block-dur">Embalaje y transporte</div>
+        </div>
+        <div class="timeline-block">
+          <div class="timeline-block-week">Semana 14–15</div>
+          <div class="timeline-block-name">Instalación</div>
+          <div class="timeline-block-dur">Montaje y entrega</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-label">Su próximo proyecto</div>
+      <h2 class="cta-title">¿Listo para <em>empezar</em>?</h2>
+      <p class="cta-body">Cuéntenos sobre su proyecto. Nuestro equipo le contactará en menos de 24 horas para agendar la primera visita técnica.</p>
+      <div class="cta-actions">
+        <a href="index.html#contacto" class="btn-primary">
+          Solicitar Cotización
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="index.html" class="btn-ghost">
+          Volver al Inicio
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+          <p>Fabricantes de mobiliario contractual de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="index.html#nosotros">Quiénes Somos</a></li>
+            <li><a href="proceso.html">Cómo Trabajamos</a></li>
+            <li><a href="index.html#contacto">Solicitar Cotización</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sectores</h4>
+          <ul>
+            <li><a href="sectores.html#hoteles">Hotelería</a></li>
+            <li><a href="sectores.html#oficinas">Oficinas</a></li>
+            <li><a href="sectores.html#salud">Salud</a></li>
+            <li><a href="sectores.html#educacion">Educación</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:ventas@sapellimobiliario.pe">ventas@sapellimobiliario.pe</a></li>
+            <li><a href="tel:+5116001234">+51 (1) 600-1234</a></li>
+            <li>Villa el Salvador, Lima, Perú</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Sapelli Mobiliario S.A.C. — Todos los derechos reservados.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Scroll animations ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up, .stagger').forEach(el => observer.observe(el));
+
+    // ── Journey progress tracking ──
+    const fases = document.querySelectorAll('.fase');
+    const jpSteps = document.querySelectorAll('.jp-step');
+    const faseObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          jpSteps.forEach(s => s.classList.remove('active'));
+          const target = e.target.id;
+          const step = document.querySelector(`.jp-step[data-target="${target}"]`);
+          if (step) step.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-130px 0px -40% 0px' });
+    fases.forEach(f => faseObserver.observe(f));
+
+    // ── Theme ──
+    function toggleTheme() {
+      const isLight = document.documentElement.dataset.theme === 'light';
+      document.documentElement.dataset.theme = isLight ? '' : 'light';
+      localStorage.setItem('sapelli-theme', isLight ? 'dark' : 'light');
+    }
+  </script>
+
+</body>
+</html>

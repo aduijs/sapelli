@@ -693,7 +693,7 @@
       --border:      rgba(13,12,11,0.10);
       --border-warm: rgba(224, 88, 32, 0.30);
       --text:        #0D0C0B;
-      --text-soft:   rgba(13, 12, 11, 0.58);
+      --text-soft:   rgba(13, 12, 11, 0.75);
       --text-muted:  rgba(13, 12, 11, 0.35);
       --orange-glow: rgba(224, 88, 32, 0.10);
     }
@@ -701,10 +701,35 @@
     [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
     [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
     [data-theme="light"] body::before { opacity: 0.012; }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-up, .stagger { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      background: var(--orange); color: #fff;
+      padding: 8px 16px; border-radius: 0 0 4px 4px;
+      font-size: 13px; font-weight: 600; z-index: 9999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── FOCUS VISIBLE ── */
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
   </style>
   <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- NAV -->
   <nav class="nav">
@@ -725,7 +750,7 @@
   </nav>
 
   <!-- PAGE HEADER -->
-  <header class="page-header">
+  <header id="main" class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-gradient"></div>
     <div class="page-header-content">
@@ -758,7 +783,7 @@
         <div class="stat-label">Proyectos Entregados</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-num">30<span>+</span></div>
         <div class="stat-label">Años de Experiencia</div>
       </div>
       <div class="stat-item">
@@ -1460,7 +1485,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
-          <p>Fabricantes de mobiliario contractual de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+          <p>Fabricantes de mobiliario contract de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
         </div>
         <div class="footer-col">
           <h4>Empresa</h4>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sapelli Mobiliario — Mobiliario Contractual de Alto Rendimiento</title>
+  <title>Sapelli Mobiliario — Mobiliario Contract de Alto Rendimiento</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,9 +57,13 @@
       font-family: inherit;
       font-size: inherit;
       border: none;
-      outline: none;
       background: none;
     }
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
 
     /* ─────────────────────────────────────────
        NOISE TEXTURE OVERLAY
@@ -1172,6 +1176,18 @@
       color: var(--text-muted);
     }
     .form-group select option { background: var(--ink-3); }
+    .form-group .form-error {
+      display: none;
+      font-size: 12px;
+      color: #E05820;
+      margin-top: 6px;
+    }
+    .form-group.invalid input,
+    .form-group.invalid select,
+    .form-group.invalid textarea {
+      border-color: #E05820;
+    }
+    .form-group.invalid .form-error { display: block; }
     .form-group textarea { resize: vertical; min-height: 100px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-submit {
@@ -1331,7 +1347,25 @@
        RESPONSIVE
     ───────────────────────────────────────── */
     @media (max-width: 1024px) {
-      .nav-links { display: none; }
+      .nav-links {
+        display: flex;
+        position: fixed;
+        top: 72px; left: 0; right: 0; bottom: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        background: rgba(13,12,11,0.98);
+        backdrop-filter: blur(20px);
+        z-index: 899;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s var(--ease-out-expo);
+      }
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
       .nav-burger { display: flex; }
 
       .hero { padding: 0 32px 80px; }
@@ -1407,7 +1441,7 @@
       --border:      rgba(13,12,11,0.10);
       --border-warm: rgba(224, 88, 32, 0.30);
       --text:        #0D0C0B;
-      --text-soft:   rgba(13, 12, 11, 0.58);
+      --text-soft:   rgba(13, 12, 11, 0.75);
       --text-muted:  rgba(13, 12, 11, 0.35);
       --orange-glow: rgba(224, 88, 32, 0.10);
     }
@@ -1430,10 +1464,33 @@
     [data-theme="light"] .sector-desc {
       color: rgba(245, 237, 224, 0.68);
     }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-up, .stagger { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      background: var(--orange); color: #fff;
+      padding: 8px 16px; border-radius: 0 0 4px 4px;
+      font-size: 13px; font-weight: 600; z-index: 9999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── ACTIVE NAV LINK ── */
+    .nav-links a.active {
+      color: var(--orange) !important;
+    }
   </style>
   <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- ═══════════════════════════════════════
        NAV
@@ -1461,7 +1518,7 @@
   <!-- ═══════════════════════════════════════
        HERO
   ═══════════════════════════════════════ -->
-  <section class="hero" id="inicio">
+  <section class="hero" id="main">
     <div class="hero-bg"></div>
     <div class="hero-img" style="background-image: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4940.jpg');"></div>
     <div class="hero-gradient"></div>
@@ -1478,14 +1535,14 @@
     </svg>
 
     <div class="hero-content">
-      <div class="hero-tag">Mobiliario Contractual · Lima, Perú</div>
+      <div class="hero-tag">Mobiliario Contract · Lima, Perú</div>
       <h1 class="hero-title">
         Espacios que<br />
         <em>Transforman</em><br />
         Negocios
       </h1>
       <p class="hero-sub">
-        Diseñamos y fabricamos mobiliario contractual de alto rendimiento
+        Diseñamos y fabricamos mobiliario contract con tecnología de alto rendimiento
         para hoteles, oficinas, restaurantes y espacios de salud en todo el Perú.
       </p>
       <div class="hero-actions">
@@ -1506,7 +1563,7 @@
 
     <div class="hero-stats">
       <div>
-        <div class="hero-stat-num">20<span>+</span></div>
+        <div class="hero-stat-num">30<span>+</span></div>
         <div class="hero-stat-label">Años de experiencia</div>
       </div>
       <div>
@@ -1560,14 +1617,14 @@
             <circle cx="60" cy="60" r="42"/>
             <circle cx="60" cy="60" r="56"/>
           </svg>
-          <img class="nosotros-image" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/jw-marriott-hotel-lima/62626.jpg" alt="Sapelli — JW Marriott Lima" />
+          <img class="nosotros-image" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/jw-marriott-hotel-lima/62626.jpg" alt="Sapelli — JW Marriott Lima" loading="lazy" width="600" height="400" />
           <div class="nosotros-image-accent" style="background-image: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62462.jpg');"></div>
         </div>
         <div class="nosotros-content">
           <div class="section-label fade-up">Quiénes Somos</div>
-          <h2 class="section-title fade-up">Más de dos décadas <em>construyendo</em> espacios memorables</h2>
+          <h2 class="section-title fade-up">Más de tres décadas <em>construyendo</em> espacios memorables</h2>
           <p class="section-body fade-up">
-            Sapelli Mobiliario es una empresa peruana especializada en mobiliario contractual de alta exigencia.
+            Sapelli Mobiliario es una empresa peruana especializada en mobiliario contract de alta exigencia.
             Combinamos diseño funcional, materiales premium y fabricación local para entregar soluciones
             a medida que soportan el ritmo de los entornos más exigentes.
           </p>
@@ -1638,7 +1695,7 @@
 
       <div class="sectores-grid">
         <a class="sector-card" href="sectores.html#hoteles">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4916.jpg" alt="Hotelería — Iberostar Miraflores" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4916.jpg" alt="Hotelería — Iberostar Miraflores" />
           <div class="sector-card-overlay"></div>
           <div class="sector-card-content">
             <div class="sector-num">01</div>
@@ -1652,7 +1709,7 @@
           </div>
         </a>
         <a class="sector-card" href="sectores.html#oficinas">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/62450.jpg" alt="Oficinas — BBVA Continental" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/62450.jpg" alt="Oficinas — BBVA Continental" />
           <div class="sector-card-overlay"></div>
           <div class="sector-card-content">
             <div class="sector-num">02</div>
@@ -1666,7 +1723,7 @@
           </div>
         </a>
         <a class="sector-card" href="sectores.html#hoteles">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_5038.jpg" alt="Restaurantes — Iberostar Lima" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_5038.jpg" alt="Restaurantes — Iberostar Lima" />
           <div class="sector-card-overlay"></div>
           <div class="sector-card-content">
             <div class="sector-num">03</div>
@@ -1680,7 +1737,7 @@
           </div>
         </a>
         <a class="sector-card" href="sectores.html#salud">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-delgado-auna/62657.jpg" alt="Salud — Clínica Delgado AUNA" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/salud-clinica-delgado-auna/62657.jpg" alt="Salud — Clínica Delgado AUNA" />
           <div class="sector-card-overlay"></div>
           <div class="sector-card-content">
             <div class="sector-num">04</div>
@@ -1694,7 +1751,7 @@
           </div>
         </a>
         <a class="sector-card" href="sectores.html#educacion">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62528.jpg" alt="Educación — salas de formación" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62528.jpg" alt="Educación — salas de formación" />
           <div class="sector-card-overlay"></div>
           <div class="sector-card-content">
             <div class="sector-num">05</div>
@@ -1731,10 +1788,10 @@
 
       <div class="productos-grid stagger">
         <a class="producto-card" href="catalogo.html?cat=asientos">
-          <img class="producto-img" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62461.jpg" alt="Sillas de Comedor Contractuales" />
+          <img class="producto-img" loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62461.jpg" alt="Sillas de Comedor Contract" />
           <div class="producto-body">
             <div class="producto-cat">Asientos</div>
-            <div class="producto-name">Sillas de Comedor Contractuales</div>
+            <div class="producto-name">Sillas de Comedor Contract</div>
             <div class="producto-desc">Tapizadas o en madera maciza, diseñadas para resistir hasta 8 horas diarias de uso intensivo.</div>
           </div>
           <div class="producto-footer">
@@ -1747,7 +1804,7 @@
           </div>
         </a>
         <a class="producto-card" href="catalogo.html?cat=mesas">
-          <img class="producto-img" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62522.jpg" alt="Escritorios Corporativos" />
+          <img class="producto-img" loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62522.jpg" alt="Escritorios Corporativos" />
           <div class="producto-body">
             <div class="producto-cat">Mesas y Escritorios</div>
             <div class="producto-name">Escritorios Corporativos</div>
@@ -1763,7 +1820,7 @@
           </div>
         </a>
         <a class="producto-card" href="catalogo.html?cat=hoteleria">
-          <img class="producto-img" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4951.jpg" alt="Mobiliario de Habitación" />
+          <img class="producto-img" loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4951.jpg" alt="Mobiliario de Habitación" />
           <div class="producto-body">
             <div class="producto-cat">Hotelería</div>
             <div class="producto-name">Mobiliario de Habitación</div>
@@ -1779,7 +1836,7 @@
           </div>
         </a>
         <a class="producto-card" href="catalogo.html?cat=recepciones">
-          <img class="producto-img" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/ibis_styles/62945.jpg" alt="Recepciones y Lobbies" />
+          <img class="producto-img" loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/ibis_styles/62945.jpg" alt="Recepciones y Lobbies" />
           <div class="producto-body">
             <div class="producto-cat">Espacios Comunes</div>
             <div class="producto-name">Recepciones y Lobbies</div>
@@ -1873,7 +1930,7 @@
         <div class="scm-badge fade-up">
           <div class="scm-badge-text">
             <span class="scm-badge-label">Equipados con tecnología</span>
-            <img class="scm-badge-logo" src="https://www.scmgroup.com/00/logo-corporate.svg" alt="SCM Group" />
+            <img class="scm-badge-logo" loading="lazy" src="https://www.scmgroup.com/00/logo-corporate.svg" alt="SCM Group" />
           </div>
           <div class="scm-badge-divider"></div>
           <div class="scm-badge-text">
@@ -1884,19 +1941,19 @@
 
         <div class="industrial-machines fade-up">
           <div class="machine-card">
-            <img src="Assets/morbidelli_x100@2x.avif" alt="Morbidelli X100" />
+            <img loading="lazy" src="Assets/morbidelli_x100@2x.avif" alt="Morbidelli X100" />
             <div class="machine-card-label">Morbidelli X100
               <div class="machine-card-sub">Centro CNC multipunto</div>
             </div>
           </div>
           <div class="machine-card">
-            <img src="Assets/morbidelli-cx110_W.avif" alt="Morbidelli CX110" />
+            <img loading="lazy" src="Assets/morbidelli-cx110_W.avif" alt="Morbidelli CX110" />
             <div class="machine-card-label">Morbidelli CX110
               <div class="machine-card-sub">Centro CNC nesting</div>
             </div>
           </div>
           <div class="machine-card">
-            <img src="Assets/t460_2@2x.avif" alt="SCM T460" />
+            <img loading="lazy" src="Assets/t460_2@2x.avif" alt="SCM T460" />
             <div class="machine-card-label">SCM T460
               <div class="machine-card-sub">Canteadora automática</div>
             </div>
@@ -1913,7 +1970,7 @@
         <div class="industrial-metric">
           <div class="industrial-metric-num">60<span>+</span></div>
           <div class="industrial-metric-label">Trabajadores</div>
-          <div class="industrial-metric-desc">Equipo estable de carpinteros, tapiceros y operarios especializados en contractual.</div>
+          <div class="industrial-metric-desc">Equipo estable de carpinteros, tapiceros y operarios especializados en contract.</div>
         </div>
         <div class="industrial-metric">
           <div class="industrial-metric-num">45</div>
@@ -1923,7 +1980,7 @@
         <div class="industrial-metric">
           <div class="industrial-metric-num">ISO</div>
           <div class="industrial-metric-label">Certificación</div>
-          <div class="industrial-metric-desc">Procesos alineados a ISO 9001 y estándares internacionales de calidad contractual.</div>
+          <div class="industrial-metric-desc">Procesos alineados a ISO 9001 y estándares internacionales de calidad contract.</div>
         </div>
       </div>
 
@@ -1938,7 +1995,7 @@
       <div class="proyectos-header">
         <div>
           <div class="section-label fade-up">Proyectos Destacados</div>
-          <h2 class="section-title fade-up">Espacios que <em>hablamos</em><br/>con nuestro trabajo</h2>
+          <h2 class="section-title fade-up">Espacios que <em>reflejan</em><br/>nuestra dedicación al detalle</h2>
         </div>
         <a href="proyectos.html" class="btn-ghost fade-up">
           Ver portafolio completo
@@ -1950,7 +2007,7 @@
 
       <div class="proyectos-grid">
         <div class="proyecto-card">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4993.jpg" alt="Iberostar Miraflores" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4993.jpg" alt="Iberostar Miraflores" />
           <div class="proyecto-card-overlay"></div>
           <div class="proyecto-card-content">
             <div class="proyecto-type">Hotelería · Cadena Internacional · 2021</div>
@@ -1959,7 +2016,7 @@
           </div>
         </div>
         <div class="proyecto-card">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-torre-america/13841.jpg" alt="Rimac Seguros Torre América" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-rimac-seguros-torre-america/13841.jpg" alt="Rimac Seguros Torre América" />
           <div class="proyecto-card-overlay"></div>
           <div class="proyecto-card-content">
             <div class="proyecto-type">Oficinas · Corporativo · 2011</div>
@@ -1968,7 +2025,7 @@
           </div>
         </div>
         <div class="proyecto-card">
-          <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62482.jpg" alt="Courtyard by Marriott" />
+          <img loading="lazy" src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62482.jpg" alt="Courtyard by Marriott" />
           <div class="proyecto-card-overlay"></div>
           <div class="proyecto-card-content">
             <div class="proyecto-type">Hotelería · Contract Furniture · 2016</div>
@@ -2058,10 +2115,12 @@
               <div class="form-group">
                 <label>Nombre *</label>
                 <input type="text" placeholder="Su nombre" required />
+                <span class="form-error">Por favor ingrese su nombre</span>
               </div>
               <div class="form-group">
                 <label>Apellido *</label>
                 <input type="text" placeholder="Su apellido" required />
+                <span class="form-error">Por favor ingrese su apellido</span>
               </div>
             </div>
             <div class="form-group">
@@ -2072,6 +2131,7 @@
               <div class="form-group">
                 <label>Email *</label>
                 <input type="email" placeholder="correo@empresa.com" required />
+                <span class="form-error">Por favor ingrese un email válido</span>
               </div>
               <div class="form-group">
                 <label>Teléfono</label>
@@ -2110,7 +2170,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
-          <p>Fabricantes de mobiliario contractual de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+          <p>Fabricantes de mobiliario contract de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
         </div>
         <div class="footer-col">
           <h4>Empresa</h4>
@@ -2203,38 +2263,43 @@
     });
 
     // ── Mobile nav ──
-    let navOpen = false;
     function toggleNav() {
-      navOpen = !navOpen;
       const links = document.querySelector('.nav-links');
-      if (navOpen) {
-        links.style.display = 'flex';
-        links.style.position = 'fixed';
-        links.style.top = '72px';
-        links.style.left = '0';
-        links.style.right = '0';
-        links.style.bottom = '0';
-        links.style.flexDirection = 'column';
-        links.style.alignItems = 'center';
-        links.style.justifyContent = 'center';
-        links.style.gap = '40px';
-        links.style.background = 'rgba(13,12,11,0.98)';
-        links.style.backdropFilter = 'blur(20px)';
-        links.style.zIndex = '899';
-      } else {
-        links.style.display = 'none';
-      }
+      links.classList.toggle('open');
     }
+
+    // ── Inline validation on blur ──
+    document.querySelectorAll('.form-group input[required], .form-group textarea[required]').forEach(el => {
+      el.addEventListener('blur', () => {
+        const group = el.closest('.form-group');
+        if (!el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))) {
+          group.classList.add('invalid');
+        } else {
+          group.classList.remove('invalid');
+        }
+      });
+      el.addEventListener('input', () => el.closest('.form-group').classList.remove('invalid'));
+    });
 
     // ── Smooth form handling ──
     function handleForm(e) {
       e.preventDefault();
+      let valid = true;
+      e.target.querySelectorAll('[required]').forEach(el => {
+        const group = el.closest('.form-group');
+        if (!el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))) {
+          group.classList.add('invalid');
+          if (valid) { el.focus(); valid = false; }
+        }
+      });
+      if (!valid) return;
+
       const btn = e.target.querySelector('.form-submit');
       btn.textContent = 'Enviando...';
       btn.style.opacity = '0.7';
       setTimeout(() => {
-        btn.textContent = '¡Solicitud Enviada!';
-        btn.style.background = '#2d8a4e';
+        btn.textContent = '\u00a1Solicitud Enviada!';
+        btn.style.background = '#2E7D32';
         setTimeout(() => {
           btn.textContent = 'Enviar Solicitud';
           btn.style.background = '';

@@ -158,7 +158,7 @@
     .toolbar-search input {
       background: none; border: none; color: var(--text-soft);
       font-family: var(--ff-body); font-size: 13px; font-weight: 300;
-      width: 180px; outline: none;
+      width: 180px;
     }
     .toolbar-search input::placeholder { color: var(--text-muted); }
     .toolbar-search svg { color: var(--text-muted); flex-shrink: 0; }
@@ -591,7 +591,7 @@
       --border:      rgba(13,12,11,0.10);
       --border-warm: rgba(224, 88, 32, 0.30);
       --text:        #0D0C0B;
-      --text-soft:   rgba(13, 12, 11, 0.58);
+      --text-soft:   rgba(13, 12, 11, 0.75);
       --text-muted:  rgba(13, 12, 11, 0.35);
       --orange-glow: rgba(224, 88, 32, 0.10);
     }
@@ -599,10 +599,35 @@
     [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
     [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
     [data-theme="light"] body::before { opacity: 0.012; }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-up, .stagger { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      background: var(--orange); color: #fff;
+      padding: 8px 16px; border-radius: 0 0 4px 4px;
+      font-size: 13px; font-weight: 600; z-index: 9999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── FOCUS VISIBLE ── */
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
   </style>
   <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
 
   <!-- NAV -->
   <nav class="nav">
@@ -623,7 +648,7 @@
   </nav>
 
   <!-- PAGE HEADER -->
-  <header class="page-header">
+  <header id="main" class="page-header">
     <div class="page-header-bg"></div>
     <div class="page-header-gradient"></div>
     <div class="page-header-content">
@@ -636,7 +661,7 @@
         <h1 class="page-title">Catálogo de<br /><em>Productos</em></h1>
       </div>
       <div class="page-header-right">
-        <p>Líneas completas de mobiliario contractual para cada sector y necesidad. Fabricación a medida disponible en todas las referencias.</p>
+        <p>Líneas completas de mobiliario contract para cada sector y necesidad. Fabricación a medida disponible en todas las referencias.</p>
       </div>
     </div>
   </header>
@@ -780,12 +805,12 @@
 
         <div class="product-card" data-cat="asientos" data-sectors="restaurante,hotel,educacion" data-mat="tapizado"
           data-name="Silla Comedor Contractual Serie C"
-          data-desc="Silla de comedor de alta resistencia para entornos contractuales. Estructura en haya vaporizada, asiento y respaldo tapizado con espuma de alta densidad (40 kg/m³) y tela técnica repelente. Soporte de 120 kg certificado."
+          data-desc="Silla de comedor de alta resistencia para entornos contract. Estructura en haya vaporizada, asiento y respaldo tapizado con espuma de alta densidad (40 kg/m³) y tela técnica repelente. Soporte de 120 kg certificado."
           data-img="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80"
           data-img2="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80"
           data-img3="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=800&q=80"
           data-specs='[{"label":"Dimensiones","val":"W 52 × D 55 × H 82 cm"},{"label":"Asiento","val":"H 46 cm"},{"label":"Carga máx.","val":"120 kg"},{"label":"Apilable","val":"Hasta 6 unid."},{"label":"Plazo estándar","val":"21 días"},{"label":"Mínimo","val":"20 unid."}]'
-          data-materials='[{"name":"Tela técnica","color":"#5A5A5A"},{"name":"Cuero natural","color":"#8B6914"},{"name":"Vinilo contractual","color":"#2C2C2C"}]'>
+          data-materials='[{"name":"Tela técnica","color":"#5A5A5A"},{"name":"Cuero natural","color":"#8B6914"},{"name":"Vinilo contract","color":"#2C2C2C"}]'>
           <div class="product-card-img-wrap">
             <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" alt="Silla Comedor Contractual" />
             <div class="product-card-badge badge-top">Top ventas</div>
@@ -835,7 +860,7 @@
 
         <div class="product-card" data-cat="asientos" data-sectors="oficina,educacion" data-mat="mixto"
           data-name="Silla Operativa Ergonómica"
-          data-desc="Silla operativa de uso prolongado con mecanismo sincronizado, soporte lumbar ajustable y reposabrazos en 4D. Respaldo en malla técnica transpirable. Certificación BIFMA para uso contractual en oficinas y centros educativos."
+          data-desc="Silla operativa de uso prolongado con mecanismo sincronizado, soporte lumbar ajustable y reposabrazos en 4D. Respaldo en malla técnica transpirable. Certificación BIFMA para uso contract en oficinas y centros educativos."
           data-img="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=800&q=80"
           data-img2="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
           data-img3=""
@@ -1103,7 +1128,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
-          <p>Fabricantes de mobiliario contractual de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+          <p>Fabricantes de mobiliario contract de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
         </div>
         <div class="footer-col">
           <h4>Empresa</h4>

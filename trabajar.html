@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trabaja con Nosotros — Sapelli Mobiliario</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --orange:      #E05820;
+      --orange-dark: #B8481A;
+      --orange-glow: rgba(224, 88, 32, 0.18);
+      --ink:         #0D0C0B;
+      --ink-2:       #181614;
+      --ink-3:       #242220;
+      --surface:     #1E1C1A;
+      --border:      rgba(255,255,255,0.07);
+      --border-warm: rgba(224, 88, 32, 0.25);
+      --text:        #F5EDE0;
+      --text-soft:   rgba(245, 237, 224, 0.65);
+      --text-muted:  rgba(245, 237, 224, 0.38);
+      --ff-display:  'Cormorant Garamond', Georgia, serif;
+      --ff-body:     'DM Sans', system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1000;
+      pointer-events: none; opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      padding: 0 48px; height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,12,11,0.96);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-soft); transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--orange); }
+    .nav-cta {
+      padding: 10px 24px; background: var(--orange); color: #fff !important;
+      border-radius: 3px; font-size: 12px !important;
+      box-shadow: 0 2px 16px rgba(224,88,32,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(224,88,32,0.35); }
+    .nav-cta:active { transform: translateY(0); }
+
+    /* Mobile nav toggle */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-burger span {
+      width: 24px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      background: none; border: 1px solid var(--border); color: var(--text-soft);
+      cursor: pointer; width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s ease, border-color 0.2s ease; flex-shrink: 0; padding: 0;
+    }
+    .theme-toggle:hover { color: var(--text); border-color: var(--text-soft); }
+    .theme-toggle svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .icon-sun { display: none; }
+    [data-theme="light"] .icon-moon { display: none; }
+    [data-theme="light"] .icon-sun { display: block; }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --ink: #F8F3ED; --ink-2: #F0E9DF; --ink-3: #E8DFD2;
+      --surface: #EDE4D6;
+      --border: rgba(13,12,11,0.10); --border-warm: rgba(224, 88, 32, 0.30);
+      --text: #0D0C0B; --text-soft: rgba(13, 12, 11, 0.75); --text-muted: rgba(13, 12, 11, 0.35);
+      --orange-glow: rgba(224, 88, 32, 0.10);
+    }
+    [data-theme="light"] .nav { background: rgba(248, 243, 237, 0.97); }
+    [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
+    [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
+    [data-theme="light"] body::before { opacity: 0.012; }
+    [data-theme="light"] .page-header { --text: #F5EDE0; --text-soft: rgba(245,237,224,0.72); --text-muted: rgba(245,237,224,0.42); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      position: relative; padding: 160px 0 100px; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/62450.jpg') center/cover no-repeat;
+      filter: brightness(0.25) grayscale(30%);
+    }
+    .page-header-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(13,12,11,0.5) 0%, rgba(13,12,11,0.95) 100%);
+    }
+    .page-header-content {
+      position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    }
+    .breadcrumb {
+      font-size: 12px; color: var(--text-muted); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { transition: color 0.2s ease; color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb-sep { color: var(--text-muted); }
+    .page-title {
+      font-family: var(--ff-display); font-size: clamp(44px, 5vw, 72px);
+      font-weight: 300; line-height: 1.08; letter-spacing: -0.02em;
+      max-width: 680px; margin-bottom: 20px; color: var(--text);
+    }
+    .page-title em { font-style: italic; color: var(--orange); }
+    .page-subtitle {
+      font-size: 17px; font-weight: 300; color: var(--text-soft);
+      max-width: 540px; line-height: 1.75; margin-bottom: 32px;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 36px; background: var(--orange); color: #fff;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; border-radius: 3px;
+      box-shadow: 0 4px 24px rgba(224,88,32,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(224,88,32,0.45); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+    /* ── SECTION UTILITIES ── */
+    .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 20px;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .section-title {
+      font-family: var(--ff-display); font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 300; line-height: 1.12; letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .section-title em { font-style: italic; color: var(--orange); }
+    .section-body {
+      font-size: 15px; font-weight: 300; color: var(--text-soft);
+      line-height: 1.85; max-width: 560px;
+    }
+
+    /* ── VALORES ── */
+    .valores {
+      padding: 120px 0;
+      background: var(--ink);
+    }
+    .valores-header { text-align: center; margin-bottom: 64px; }
+    .valores-header .section-label { justify-content: center; }
+    .valores-header .section-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .valores-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .valor-card {
+      padding: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+    .valor-card:hover {
+      border-color: var(--border-warm);
+      transform: translateY(-2px);
+    }
+    .valor-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--orange-glow); border: 1px solid var(--border-warm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); margin-bottom: 20px;
+    }
+    .valor-card h4 {
+      font-family: var(--ff-display); font-size: 22px; font-weight: 400;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .valor-card p {
+      font-size: 14px; font-weight: 300; color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    /* ── AMBIENTE LABORAL ── */
+    .ambiente {
+      padding: 120px 0;
+      background: var(--ink-2);
+    }
+    .ambiente-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .ambiente-text .section-body { margin-bottom: 0; }
+    .photo-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .photo-mosaic-item {
+      position: relative; border-radius: 6px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .photo-mosaic-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.8) saturate(0.85);
+      transition: transform 0.7s var(--ease-out-expo);
+    }
+    .photo-mosaic-item:hover img { transform: scale(1.04); }
+    .photo-mosaic-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(224,88,32,0.08) 0%, transparent 60%);
+    }
+
+    /* ── EDUCACION ── */
+    .educacion {
+      padding: 120px 0;
+      background: var(--ink-3);
+    }
+    .educacion-header { text-align: center; margin-bottom: 64px; }
+    .educacion-header .section-label { justify-content: center; }
+    .educacion-header .section-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .educacion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .programa-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .programa-card:hover {
+      border-color: var(--border-warm);
+      background: rgba(224, 88, 32, 0.04);
+    }
+    .programa-icon {
+      flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--orange-glow); border: 1px solid var(--border-warm);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange);
+    }
+    .programa-text h4 {
+      font-size: 14px; font-weight: 600; color: var(--text);
+      margin-bottom: 6px; letter-spacing: 0.02em;
+    }
+    .programa-text p {
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    /* ── TESTIMONIOS ── */
+    .testimonios {
+      padding: 120px 0;
+      background: var(--ink);
+    }
+    .testimonios-header { text-align: center; margin-bottom: 64px; }
+    .testimonios-header .section-label { justify-content: center; }
+    .testimonios-header .section-label::after {
+      content: ''; display: block; width: 24px; height: 1px; background: var(--orange);
+    }
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonio-card {
+      padding: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+    .testimonio-card:hover { border-color: var(--border-warm); }
+    .testimonio-quote-mark {
+      font-family: var(--ff-display); font-size: 64px; font-weight: 300;
+      color: var(--orange); line-height: 0.8; margin-bottom: 8px;
+    }
+    .testimonio-text {
+      font-family: var(--ff-display); font-size: 17px; font-style: italic;
+      font-weight: 300; color: var(--text-soft); line-height: 1.75;
+      margin-bottom: 24px;
+    }
+    .testimonio-name {
+      font-size: 14px; font-weight: 600; color: var(--text);
+      margin-bottom: 2px;
+    }
+    .testimonio-role {
+      font-size: 12px; color: var(--text-muted);
+    }
+
+    /* ── POSTULA ── */
+    .postula {
+      padding: 120px 0;
+      background: var(--ink-2);
+    }
+    .postula-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .postula-info .section-title { margin-bottom: 24px; }
+    .postula-info .section-body { margin-bottom: 0; }
+
+    /* Form */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 40px;
+    }
+    .form-card h3 {
+      font-family: var(--ff-display);
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 32px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 300;
+      font-family: var(--ff-body);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--border-warm);
+      background: rgba(224, 88, 32, 0.04);
+      outline: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+    .form-group select option { background: var(--ink-3); }
+    .form-group .form-error {
+      display: none;
+      font-size: 12px;
+      color: #E05820;
+      margin-top: 6px;
+    }
+    .form-group.invalid input,
+    .form-group.invalid select,
+    .form-group.invalid textarea {
+      border-color: #E05820;
+    }
+    .form-group.invalid .form-error { display: block; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* File Drop Zone */
+    .file-drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: 4px;
+      padding: 32px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .file-drop-zone:hover,
+    .file-drop-zone.drag-over {
+      border-color: var(--border-warm);
+      background: rgba(224, 88, 32, 0.04);
+    }
+    .file-drop-zone.has-file {
+      border-color: var(--orange);
+      background: var(--orange-glow);
+    }
+    .file-drop-icon {
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    .file-drop-text {
+      font-size: 13px; color: var(--text-soft); margin-bottom: 4px;
+    }
+    .file-drop-text strong { color: var(--orange); }
+    .file-drop-hint {
+      font-size: 11px; color: var(--text-muted);
+    }
+    .file-drop-name {
+      font-size: 13px; font-weight: 500; color: var(--orange);
+      margin-top: 8px; display: none;
+    }
+    .file-drop-zone.has-file .file-drop-name { display: block; }
+    .file-drop-zone input[type="file"] { display: none; }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px 24px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 8px;
+      font-family: var(--ff-body);
+      box-shadow: 0 4px 20px rgba(224, 88, 32, 0.3);
+      transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .form-submit:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba(224, 88, 32, 0.4);
+    }
+    .form-submit:active { transform: translateY(0); }
+    .form-submit:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--ink); border-top: 1px solid var(--border); padding: 64px 0 32px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+    .footer-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+    .footer-brand img { height: 32px; margin-bottom: 20px; }
+    .footer-brand p { font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 280px; }
+    .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col a { font-size: 14px; color: var(--text-soft); transition: color 0.2s ease; }
+    .footer-col a:hover { color: var(--orange); }
+    .footer-bottom { padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+    /* ── ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(32px); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+    .stagger.visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .stagger.visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+    .stagger.visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: flex;
+        position: fixed;
+        top: 72px; left: 0; right: 0; bottom: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        background: rgba(13,12,11,0.98);
+        backdrop-filter: blur(20px);
+        z-index: 899;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s var(--ease-out-expo);
+      }
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-burger { display: flex; }
+
+      .valores-grid { grid-template-columns: 1fr; }
+      .ambiente-grid { grid-template-columns: 1fr; gap: 48px; }
+      .educacion-grid { grid-template-columns: 1fr; }
+      .testimonios-grid { grid-template-columns: 1fr; }
+      .postula-grid { grid-template-columns: 1fr; gap: 48px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { padding: 0 24px; }
+      .page-header-content { padding: 0 24px; }
+      .section-inner { padding: 0 24px; }
+      .footer-inner { padding: 0 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
+      .photo-mosaic { grid-template-columns: 1fr; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .fade-up, .stagger { opacity: 1 !important; transform: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: absolute; top: -100%; left: 16px;
+      background: var(--orange); color: #fff;
+      padding: 8px 16px; border-radius: 0 0 4px 4px;
+      font-size: 13px; font-weight: 600; z-index: 9999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── FOCUS VISIBLE ── */
+    :focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 2px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+  </style>
+  <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">
+      <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#nosotros">Nosotros</a></li>
+      <li><a href="sectores.html">Sectores</a></li>
+      <li><a href="catalogo.html">Productos</a></li>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="proceso.html">Cómo Trabajamos</a></li>
+      <li><a href="index.html#industrial">Tecnología Industrial</a></li>
+      <li><a href="index.html#contacto" class="nav-cta">Cotizar Proyecto</a></li>
+      <li><button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button></li>
+    </ul>
+    <div class="nav-burger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       PAGE HEADER
+  ═══════════════════════════════════════ -->
+  <header id="main" class="page-header">
+    <div class="page-header-bg"></div>
+    <div class="page-header-gradient"></div>
+    <div class="page-header-content">
+      <div class="breadcrumb">
+        <a href="index.html">Inicio</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Trabaja con Nosotros</span>
+      </div>
+      <h1 class="page-title">Construimos mobiliario.<br /><em>Construimos equipo.</em></h1>
+      <p class="page-subtitle">Más de 100 profesionales comprometidos con la excelencia. Descubre qué hace de Sapelli un gran lugar para trabajar.</p>
+      <a href="#postula" class="btn-primary">
+        Ver oportunidades
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       VALORES
+  ═══════════════════════════════════════ -->
+  <section class="valores">
+    <div class="section-inner">
+      <div class="valores-header">
+        <div class="section-label fade-up">Nuestros Valores</div>
+        <h2 class="section-title fade-up">Lo que nos <em>define</em></h2>
+      </div>
+      <div class="valores-grid stagger">
+        <div class="valor-card">
+          <div class="valor-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h4>Excelencia</h4>
+          <p>Cada pieza que sale de nuestra planta refleja el más alto estándar. No nos conformamos con lo correcto; buscamos lo sobresaliente en cada detalle, cada acabado, cada entrega.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <h4>Colaboración</h4>
+          <p>Grandes proyectos nacen de grandes equipos. Cada área — diseño, producción, logística — trabaja como un solo organismo, compartiendo conocimiento y apoyándose mutuamente.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Integridad</h4>
+          <p>Hacemos lo que decimos. Con nuestros clientes, proveedores y entre nosotros mismos, la transparencia y el respeto son innegociables.</p>
+        </div>
+        <div class="valor-card">
+          <div class="valor-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h4>Crecimiento</h4>
+          <p>Invertimos en nuestra gente. Capacitaciones, nuevas tecnologías, oportunidades de ascenso — creemos que cuando cada persona crece, toda la empresa se transforma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       AMBIENTE LABORAL
+  ═══════════════════════════════════════ -->
+  <section class="ambiente">
+    <div class="section-inner">
+      <div class="ambiente-grid">
+        <div class="ambiente-text">
+          <div class="section-label fade-up">Ambiente Laboral</div>
+          <h2 class="section-title fade-up">Un equipo que <em>se cuida</em></h2>
+          <p class="section-body fade-up">En Sapelli, el buen mobiliario empieza por las buenas personas. Fomentamos un ambiente de respeto, seguridad y camaradería donde cada colaborador puede dar lo mejor de sí. Nuestras instalaciones en Villa el Salvador cuentan con áreas de descanso, comedor equipado y espacios diseñados para el bienestar de todo el equipo.</p>
+          <p class="section-body fade-up" style="margin-top: 16px;">Creemos que un equipo motivado y bien cuidado es la base de cada proyecto exitoso que entregamos a nuestros clientes.</p>
+        </div>
+        <div class="photo-mosaic fade-up">
+          <div class="photo-mosaic-item">
+            <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-financiera-qapaq/62524.jpg" alt="Equipo Sapelli — trabajo en equipo" loading="lazy" />
+            <div class="photo-mosaic-overlay"></div>
+          </div>
+          <div class="photo-mosaic-item">
+            <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-bbva-continental/62450.jpg" alt="Instalaciones Sapelli" loading="lazy" />
+            <div class="photo-mosaic-overlay"></div>
+          </div>
+          <div class="photo-mosaic-item">
+            <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/oficinas-estudio-padilla-chang/62543.png" alt="Área de producción" loading="lazy" />
+            <div class="photo-mosaic-overlay"></div>
+          </div>
+          <div class="photo-mosaic-item">
+            <img src="https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-courtyard-by-marriott/62466.jpg" alt="Equipo de instalación" loading="lazy" />
+            <div class="photo-mosaic-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       EDUCACION Y CAPACITACIONES
+  ═══════════════════════════════════════ -->
+  <section class="educacion">
+    <div class="section-inner">
+      <div class="educacion-header">
+        <div class="section-label fade-up">Educación y Capacitaciones</div>
+        <h2 class="section-title fade-up">Invertimos en tu <em>crecimiento</em></h2>
+      </div>
+      <div class="educacion-grid stagger">
+        <div class="programa-card">
+          <div class="programa-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="programa-text">
+            <h4>Formación Técnica</h4>
+            <p>Programas continuos de capacitación en maquinaria CNC, tapicería industrial, acabados y control de calidad. Aprendizaje práctico con tecnología de punta.</p>
+          </div>
+        </div>
+        <div class="programa-card">
+          <div class="programa-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="programa-text">
+            <h4>Seguridad y Bienestar</h4>
+            <p>Talleres mensuales de seguridad ocupacional, ergonomía y salud preventiva. Tu bienestar físico y mental es nuestra prioridad número uno.</p>
+          </div>
+        </div>
+        <div class="programa-card">
+          <div class="programa-icon">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <div class="programa-text">
+            <h4>Desarrollo Profesional</h4>
+            <p>Plan de carrera con evaluaciones semestrales, mentoría y oportunidades reales de ascenso. El 60% de nuestros líderes creció dentro de la empresa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       TESTIMONIOS
+  ═══════════════════════════════════════ -->
+  <section class="testimonios">
+    <div class="section-inner">
+      <div class="testimonios-header">
+        <div class="section-label fade-up">Nuestro Equipo</div>
+        <h2 class="section-title fade-up">Voces de <em>Sapelli</em></h2>
+      </div>
+      <div class="testimonios-grid stagger">
+        <div class="testimonio-card">
+          <div class="testimonio-quote-mark">&ldquo;</div>
+          <p class="testimonio-text">Empecé como ayudante de taller y hoy lidero un equipo de 12 personas. Sapelli apuesta por su gente.</p>
+          <div class="testimonio-name">Carlos M.</div>
+          <div class="testimonio-role">Jefe de Producción · 8 años</div>
+        </div>
+        <div class="testimonio-card">
+          <div class="testimonio-quote-mark">&ldquo;</div>
+          <p class="testimonio-text">Lo que más valoro es el ambiente. Aquí te escuchan, te capacitan y te dan espacio para crecer.</p>
+          <div class="testimonio-name">María L.</div>
+          <div class="testimonio-role">Diseñadora Industrial · 5 años</div>
+        </div>
+        <div class="testimonio-card">
+          <div class="testimonio-quote-mark">&ldquo;</div>
+          <p class="testimonio-text">Trabajar con marcas internacionales como Marriott me ha enseñado más que cualquier curso.</p>
+          <div class="testimonio-name">Jorge R.</div>
+          <div class="testimonio-role">Tapicero Senior · 12 años</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       POSTULA CON NOSOTROS
+  ═══════════════════════════════════════ -->
+  <section class="postula" id="postula">
+    <div class="section-inner">
+      <div class="postula-grid">
+        <div class="postula-info">
+          <div class="section-label fade-up">Postula con Nosotros</div>
+          <h2 class="section-title fade-up">Siempre buscamos <em>nuevo talento</em></h2>
+          <p class="section-body fade-up">Si compartes nuestra pasión por la excelencia y quieres formar parte de un equipo que fabrica mobiliario para las marcas más exigentes del país, nos encantaría conocerte. Envíanos tu información y nos pondremos en contacto contigo.</p>
+          <p class="section-body fade-up" style="margin-top: 16px;">Valoramos la actitud, el compromiso y las ganas de aprender tanto como la experiencia técnica.</p>
+        </div>
+
+        <div class="form-card fade-up">
+          <h3>Formulario de Postulación</h3>
+          <form id="postula-form" onsubmit="handlePostulaForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nombre completo *</label>
+                <input type="text" placeholder="Tu nombre completo" required />
+                <span class="form-error">Por favor ingrese su nombre completo</span>
+              </div>
+              <div class="form-group">
+                <label>Email *</label>
+                <input type="email" placeholder="correo@ejemplo.com" required />
+                <span class="form-error">Por favor ingrese un email válido</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Teléfono</label>
+              <input type="tel" placeholder="+51 999 999 999" />
+            </div>
+            <div class="form-group">
+              <label>Área de interés</label>
+              <select>
+                <option value="" disabled selected>Seleccione un área</option>
+                <option>Producción y Taller</option>
+                <option>Diseño e Ingeniería</option>
+                <option>Ventas y Comercial</option>
+                <option>Logística y Operaciones</option>
+                <option>Administración</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Mensaje / Presentación</label>
+              <textarea placeholder="Cuéntanos sobre ti, tu experiencia y por qué te gustaría trabajar en Sapelli..."></textarea>
+            </div>
+            <div class="form-group">
+              <label>Adjuntar CV *</label>
+              <div class="file-drop-zone" id="file-drop-zone">
+                <input type="file" id="cv-input" accept=".pdf,.doc,.docx" required />
+                <div class="file-drop-icon">
+                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="file-drop-text"><strong>Haz clic</strong> o arrastra tu archivo aquí</div>
+                <div class="file-drop-hint">PDF, DOC o DOCX — máximo 5 MB</div>
+                <div class="file-drop-name" id="file-name"></div>
+              </div>
+              <span class="form-error">Por favor adjunte su CV</span>
+            </div>
+            <button type="submit" class="form-submit">Enviar Postulación</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Assets/Logo-Sapelli.png" alt="Sapelli Mobiliario" />
+          <p>Fabricantes de mobiliario contract de alta exigencia para espacios corporativos, hoteleros, gastronómicos y de salud en el Perú y Latinoamérica.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="index.html#nosotros">Quiénes Somos</a></li>
+            <li><a href="proceso.html">Cómo Trabajamos</a></li>
+            <li><a href="index.html#contacto">Solicitar Cotización</a></li>
+            <li><a href="trabajar.html">Trabaja con Nosotros</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Sectores</h4>
+          <ul>
+            <li><a href="sectores.html#hoteles">Hotelería</a></li>
+            <li><a href="sectores.html#oficinas">Oficinas</a></li>
+            <li><a href="sectores.html#salud">Salud</a></li>
+            <li><a href="sectores.html#educacion">Educación</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:ventas@sapellimobiliario.pe">ventas@sapellimobiliario.pe</a></li>
+            <li><a href="tel:+5116001234">+51 (1) 600-1234</a></li>
+            <li>Villa el Salvador, Lima, Perú</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2026 Sapelli Mobiliario S.A.C. — Todos los derechos reservados.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Scroll animations ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up, .stagger').forEach(el => observer.observe(el));
+
+    // ── Nav scroll state ──
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.nav');
+      const isLight = document.documentElement.dataset.theme === 'light';
+      if (window.scrollY > 60) {
+        nav.style.background = isLight ? 'rgba(248,243,237,0.98)' : 'rgba(13,12,11,0.97)';
+        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.08)' : 'rgba(255,255,255,0.08)';
+      } else {
+        nav.style.background = isLight
+          ? 'rgba(248,243,237,0.6)'
+          : 'linear-gradient(to bottom, rgba(13,12,11,0.95) 0%, transparent 100%)';
+        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.05)' : 'rgba(255,255,255,0.07)';
+      }
+    });
+
+    // ── Mobile nav ──
+    function toggleNav() {
+      const links = document.querySelector('.nav-links');
+      links.classList.toggle('open');
+    }
+
+    // ── Theme ──
+    function toggleTheme() {
+      const isLight = document.documentElement.dataset.theme === 'light';
+      document.documentElement.dataset.theme = isLight ? '' : 'light';
+      localStorage.setItem('sapelli-theme', isLight ? 'dark' : 'light');
+    }
+
+    // ── File upload: click + drag-and-drop ──
+    const dropZone = document.getElementById('file-drop-zone');
+    const fileInput = document.getElementById('cv-input');
+    const fileNameDisplay = document.getElementById('file-name');
+    const maxSize = 5 * 1024 * 1024; // 5MB
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('drag-over');
+    });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files[0]) handleFile(fileInput.files[0]);
+    });
+
+    function handleFile(file) {
+      const allowed = ['.pdf', '.doc', '.docx'];
+      const ext = '.' + file.name.split('.').pop().toLowerCase();
+      if (!allowed.includes(ext)) {
+        alert('Formato no permitido. Por favor suba un archivo PDF, DOC o DOCX.');
+        return;
+      }
+      if (file.size > maxSize) {
+        alert('El archivo excede el límite de 5 MB.');
+        return;
+      }
+      // Transfer file to input for form validation
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      fileInput.files = dt.files;
+      fileNameDisplay.textContent = file.name;
+      dropZone.classList.add('has-file');
+      // Clear invalid state if present
+      dropZone.closest('.form-group').classList.remove('invalid');
+    }
+
+    // ── Inline validation on blur ──
+    document.querySelectorAll('#postula-form .form-group input[required], #postula-form .form-group textarea[required]').forEach(el => {
+      el.addEventListener('blur', () => {
+        const group = el.closest('.form-group');
+        if (!el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))) {
+          group.classList.add('invalid');
+        } else {
+          group.classList.remove('invalid');
+        }
+      });
+      el.addEventListener('input', () => el.closest('.form-group').classList.remove('invalid'));
+    });
+
+    // ── Form submit handler ──
+    function handlePostulaForm(e) {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate required text/email inputs
+      e.target.querySelectorAll('input[required]:not([type="file"])').forEach(el => {
+        const group = el.closest('.form-group');
+        if (!el.value.trim() || (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value))) {
+          group.classList.add('invalid');
+          if (valid) { el.focus(); valid = false; }
+        }
+      });
+
+      // Validate file input
+      if (!fileInput.files || fileInput.files.length === 0) {
+        fileInput.closest('.form-group').classList.add('invalid');
+        if (valid) valid = false;
+      }
+
+      if (!valid) return;
+
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Enviando...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = '\u00a1Postulación Enviada!';
+        btn.style.background = '#2E7D32';
+        btn.style.opacity = '';
+        setTimeout(() => {
+          btn.textContent = 'Enviar Postulación';
+          btn.style.background = '';
+          btn.disabled = false;
+          e.target.reset();
+          dropZone.classList.remove('has-file');
+          fileNameDisplay.textContent = '';
+        }, 3000);
+      }, 1200);
+    }
+  </script>
+
+</body>
+</html>

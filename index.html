@@ -358,21 +358,11 @@
       animation: marquee 30s linear infinite;
       white-space: nowrap;
     }
-    .marquee-track span {
-      font-family: var(--ff-display);
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.92);
-      padding: 0 48px;
-      white-space: nowrap;
+    .marquee-track svg {
+      height: 20px;
+      width: auto;
+      margin: 0 48px;
       flex-shrink: 0;
-    }
-    .marquee-track .dot {
-      color: rgba(255,255,255,0.4);
-      padding: 0;
-      font-size: 12px;
     }
     @keyframes marquee {
       0% { transform: translateX(0); }
@@ -1593,19 +1583,18 @@
   ═══════════════════════════════════════ -->
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span>Marriott</span><span class="dot">·</span>
-      <span>Intercontinental</span><span class="dot">·</span>
-      <span>Credicorp</span><span class="dot">·</span>
-      <span>Breca</span><span class="dot">·</span>
-      <span>Belmond</span><span class="dot">·</span>
-      <span>Accor</span><span class="dot">·</span>
-      <span>Marriott</span><span class="dot">·</span>
-      <span>Intercontinental</span><span class="dot">·</span>
-      <span>Credicorp</span><span class="dot">·</span>
-      <span>Breca</span><span class="dot">·</span>
-      <span>Belmond</span><span class="dot">·</span>
-      <span>Accor</span><span class="dot">·</span>
-      <span>Educación</span><span class="dot">·</span>
+      <svg viewBox="0 0 120 20" aria-label="Marriott"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">MARRIOTT</text></svg>
+      <svg viewBox="0 0 200 20" aria-label="Intercontinental"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">INTERCONTINENTAL</text></svg>
+      <svg viewBox="0 0 120 20" aria-label="Credicorp"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">CREDICORP</text></svg>
+      <svg viewBox="0 0 80 20" aria-label="Breca"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">BRECA</text></svg>
+      <svg viewBox="0 0 110 20" aria-label="Belmond"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">BELMOND</text></svg>
+      <svg viewBox="0 0 80 20" aria-label="Accor"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">ACCOR</text></svg>
+      <svg viewBox="0 0 120 20" aria-label="Marriott"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">MARRIOTT</text></svg>
+      <svg viewBox="0 0 200 20" aria-label="Intercontinental"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">INTERCONTINENTAL</text></svg>
+      <svg viewBox="0 0 120 20" aria-label="Credicorp"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">CREDICORP</text></svg>
+      <svg viewBox="0 0 80 20" aria-label="Breca"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">BRECA</text></svg>
+      <svg viewBox="0 0 110 20" aria-label="Belmond"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">BELMOND</text></svg>
+      <svg viewBox="0 0 80 20" aria-label="Accor"><text x="0" y="15" fill="rgba(255,255,255,0.92)" font-family="'Cormorant Garamond',Georgia,serif" font-size="16" font-weight="600" letter-spacing="3">ACCOR</text></svg>
     </div>
   </div>
 

@@ -8,7 +8,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     /* ─────────────────────────────────────────
@@ -16,21 +16,22 @@
     ───────────────────────────────────────── */
     :root {
       --orange:      #E05820;
-      --orange-dark: #B8481A;
-      --orange-glow: rgba(224, 88, 32, 0.18);
-      --charcoal:    #595959;
-      --ink:         #0D0C0B;
-      --ink-2:       #181614;
-      --ink-3:       #242220;
-      --surface:     #1E1C1A;
-      --border:      rgba(255,255,255,0.07);
-      --border-warm: rgba(224, 88, 32, 0.25);
-      --text:        #F5EDE0;
-      --text-soft:   rgba(245, 237, 224, 0.65);
-      --text-muted:  rgba(245, 237, 224, 0.38);
+      --orange-dark: #B8421A;
+      --orange-glow: rgba(224, 88, 32, 0.14);
+      --charcoal:    #5a5752;
+      --ink:         #ffffff;
+      --ink-2:       #faf7f3;
+      --ink-3:       #f1ece4;
+      --surface:     #ffffff;
+      --border:      rgba(255,255,255,0.10);
+      --border-warm: rgba(224, 88, 32, 0.30);
+      --text:        #1a1612;
+      --text-soft:   rgba(26, 22, 18, 0.68);
+      --text-muted:  rgba(26, 22, 18, 0.45);
 
-      --ff-display: 'Cormorant Garamond', Georgia, serif;
-      --ff-body:    'DM Sans', system-ui, sans-serif;
+      --ff-display: 'Inter', system-ui, sans-serif;
+      --ff-body:    'Inter', system-ui, sans-serif;
+      --ff-mono:    'JetBrains Mono', ui-monospace, monospace;
 
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -65,19 +66,7 @@
     }
     :focus:not(:focus-visible) { outline: none; }
 
-    /* ─────────────────────────────────────────
-       NOISE TEXTURE OVERLAY
-    ───────────────────────────────────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      pointer-events: none;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-    }
+    /* (noise texture removed for a more workshop / project-portfolio feel) */
 
     /* ─────────────────────────────────────────
        NAV
@@ -91,9 +80,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: linear-gradient(to bottom, rgba(13,12,11,0.95) 0%, transparent 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 60%, transparent 100%);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       transition: background 0.4s ease;
     }
@@ -159,7 +148,7 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: var(--ink);
+      background: #ffffff;
     }
     .hero-img {
       position: absolute;
@@ -167,16 +156,15 @@
       background-image: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4940.jpg');
       background-size: cover;
       background-position: center;
-      opacity: 0.45;
-      mix-blend-mode: luminosity;
+      opacity: 0.18;
     }
     .hero-gradient {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(224, 88, 32, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 80% at 20% 80%, rgba(13,12,11,0.95) 0%, transparent 70%),
-        linear-gradient(to top, rgba(13,12,11,0.97) 0%, rgba(13,12,11,0.4) 50%, rgba(13,12,11,0.2) 100%);
+        radial-gradient(ellipse 70% 60% at 80% 30%, rgba(224, 88, 32, 0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 90% at 0% 50%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 50%, transparent 80%),
+        linear-gradient(to top, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 50%);
     }
 
     /* Decorative concentric circles (logo motif) */
@@ -223,24 +211,25 @@
 
     .hero-title {
       font-family: var(--ff-display);
-      font-size: clamp(52px, 7vw, 96px);
-      font-weight: 300;
-      line-height: 1.04;
-      letter-spacing: -0.02em;
+      font-size: clamp(44px, 6.2vw, 84px);
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: -0.025em;
       color: var(--text);
       margin-bottom: 28px;
     }
     .hero-title em {
-      font-style: italic;
+      font-style: normal;
       color: var(--orange);
+      font-weight: 600;
     }
 
     .hero-sub {
       font-size: 16px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--text-soft);
-      max-width: 480px;
-      line-height: 1.75;
+      max-width: 520px;
+      line-height: 1.6;
       margin-bottom: 48px;
     }
 
@@ -330,10 +319,11 @@
     }
     .hero-stat-num {
       font-family: var(--ff-display);
-      font-size: 36px;
-      font-weight: 300;
+      font-size: 32px;
+      font-weight: 600;
       color: var(--text);
       line-height: 1;
+      letter-spacing: -0.02em;
     }
     .hero-stat-num span { color: var(--orange); }
     .hero-stat-label {
@@ -401,20 +391,20 @@
 
     .section-title {
       font-family: var(--ff-display);
-      font-size: clamp(36px, 4vw, 56px);
-      font-weight: 300;
+      font-size: clamp(32px, 3.6vw, 48px);
+      font-weight: 600;
       line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--text);
     }
-    .section-title em { font-style: italic; color: var(--orange); }
+    .section-title em { font-style: normal; color: var(--orange); font-weight: 600; }
 
     .section-body {
       font-size: 15px;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--text-soft);
-      line-height: 1.8;
-      max-width: 520px;
+      line-height: 1.7;
+      max-width: 540px;
     }
 
     /* ─────────────────────────────────────────
@@ -440,8 +430,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(18,14,10,0.3) 0%, transparent 60%),
-        linear-gradient(to bottom, rgba(13,12,11,0.15) 0%, rgba(13,12,11,0.0) 60%);
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,255,255,0.3) 0%, transparent 60%),
+        linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.0) 60%);
       border-radius: 2px;
       pointer-events: none;
     }
@@ -489,7 +479,7 @@
       padding: 20px;
       border: 1px solid var(--border);
       border-radius: 4px;
-      background: rgba(255,255,255,0.02);
+      background: rgba(13,12,11,0.04);
       transition: border-color 0.3s ease, background 0.3s ease;
     }
     .pilar:hover {
@@ -566,13 +556,13 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to top, rgba(13,12,11,1) 0%, rgba(13,12,11,0.6) 35%, rgba(13,12,11,0.2) 65%, transparent 100%);
+        linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 35%, rgba(255,255,255,0.2) 65%, transparent 100%);
       transition: background 0.4s ease;
     }
     .sector-card:hover .sector-card-overlay {
       background:
         radial-gradient(ellipse at 50% 100%, rgba(224, 88, 32, 0.18) 0%, transparent 50%),
-        linear-gradient(to top, rgba(13,12,11,1) 0%, rgba(13,12,11,0.7) 40%, rgba(13,12,11,0.3) 70%, transparent 100%);
+        linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.3) 70%, transparent 100%);
     }
     .sector-card-content {
       position: absolute;
@@ -833,7 +823,7 @@
     .proyecto-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(13,12,11,0.92) 0%, transparent 55%);
+      background: linear-gradient(to top, rgba(255,255,255,0.92) 0%, transparent 55%);
     }
     .proyecto-card-content {
       position: absolute;
@@ -851,7 +841,8 @@
     .proyecto-name {
       font-family: var(--ff-display);
       font-size: 22px;
-      font-weight: 400;
+      font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--text);
     }
     .proyecto-loc {
@@ -861,12 +852,132 @@
     }
 
     /* ─────────────────────────────────────────
+       DETALLE CONSTRUCTIVO (technical drawings)
+    ───────────────────────────────────────── */
+    .detalle {
+      padding: 120px 0;
+      background: var(--ink-3);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .detalle-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 56px;
+    }
+    .detalle-header .section-title { margin-bottom: 0; }
+    .detalle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .plate {
+      background: #fdfbf6;
+      border: 1px solid rgba(26, 22, 18, 0.12);
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 0 rgba(26, 22, 18, 0.04);
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .plate:hover {
+      border-color: rgba(224, 88, 32, 0.35);
+      transform: translateY(-2px);
+    }
+    .plate-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(26, 22, 18, 0.10);
+      gap: 12px;
+    }
+    .plate-num {
+      font-family: var(--ff-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.06em;
+    }
+    .plate-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
+      font-family: var(--ff-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-align: right;
+    }
+    .plate-meta span:first-child { color: var(--text-soft); font-weight: 500; }
+    .plate-body {
+      position: relative;
+      background: #fdfbf6;
+      color: #2a241e;
+    }
+    .plate-body .dwg {
+      display: block;
+      width: 100%;
+      height: auto;
+      color: #2a241e;
+    }
+    .plate-foot {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 14px 18px;
+      border-top: 1px solid rgba(26, 22, 18, 0.10);
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+    .plate-foot strong {
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .detalle-foot {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .detalle-foot-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(26, 22, 18, 0.12);
+    }
+    @media (max-width: 1024px) {
+      .detalle-header { grid-template-columns: 1fr; gap: 32px; }
+      .detalle-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .detalle-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────
        INDUSTRIAL / SCM
     ───────────────────────────────────────── */
     .industrial {
       position: relative;
       overflow: hidden;
       background: var(--ink);
+      /* Keep this section dark/cinematic — local token overrides */
+      --text:        #F5EDE0;
+      --text-soft:   rgba(245, 237, 224, 0.72);
+      --text-muted:  rgba(245, 237, 224, 0.42);
+      --border:      rgba(255,255,255,0.08);
+      --surface:     #1E1C1A;
+      --ink-3:       #242220;
+    }
+    .industrial::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: #0D0C0B;
+      z-index: 0;
     }
     .industrial-bg {
       position: absolute;
@@ -905,7 +1016,7 @@
       padding: 16px 28px;
       border: 1px solid var(--border-warm);
       border-radius: 4px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(13,12,11,0.04);
       margin-bottom: 40px;
       backdrop-filter: blur(8px);
     }
@@ -941,7 +1052,7 @@
       gap: 3px;
     }
     .industrial-metric {
-      background: rgba(255,255,255,0.03);
+      background: rgba(13,12,11,0.04);
       border: 1px solid var(--border);
       padding: 28px;
       border-radius: 2px;
@@ -949,7 +1060,7 @@
     }
     .industrial-metric:hover {
       border-color: var(--border-warm);
-      background: rgba(224,88,32,0.05);
+      background: rgba(224, 88, 32,0.05);
     }
     .industrial-metric-num {
       font-family: var(--ff-display);
@@ -1008,7 +1119,7 @@
     @media (max-width: 1024px) {
       .industrial-inner { grid-template-columns: 1fr; gap: 48px; }
       .industrial-overlay {
-        background: linear-gradient(to bottom, rgba(13,12,11,0.92) 0%, rgba(13,12,11,0.75) 100%);
+        background: linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 100%);
       }
     }
     @media (max-width: 640px) {
@@ -1150,7 +1261,7 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
-      background: rgba(255,255,255,0.04);
+      background: rgba(13,12,11,0.04);
       border: 1px solid var(--border);
       border-radius: 3px;
       padding: 12px 16px;
@@ -1349,7 +1460,7 @@
         align-items: center;
         justify-content: center;
         gap: 40px;
-        background: rgba(13,12,11,0.98);
+        background: rgba(255,255,255,0.98);
         backdrop-filter: blur(20px);
         z-index: 899;
         opacity: 0;
@@ -1426,37 +1537,13 @@
     [data-theme="light"] .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
 
-    /* ── LIGHT THEME ── */
-    [data-theme="light"] {
-      --ink:         #F8F3ED;
-      --ink-2:       #F0E9DF;
-      --ink-3:       #E8DFD2;
-      --surface:     #EDE4D6;
-      --border:      rgba(13,12,11,0.10);
-      --border-warm: rgba(224, 88, 32, 0.30);
-      --text:        #0D0C0B;
-      --text-soft:   rgba(13, 12, 11, 0.75);
-      --text-muted:  rgba(13, 12, 11, 0.35);
-      --orange-glow: rgba(224, 88, 32, 0.10);
-    }
-    [data-theme="light"] .nav { background: rgba(248, 243, 237, 0.97); }
-    [data-theme="light"] .theme-toggle { color: #0D0C0B; border-color: rgba(13,12,11,0.25); }
-    [data-theme="light"] .theme-toggle:hover { border-color: rgba(13,12,11,0.45); }
-    [data-theme="light"] body::before { opacity: 0.012; }
-    /* Sections with dark image backgrounds — keep white text in both themes */
-    [data-theme="light"] .hero {
-      --text:      #F5EDE0;
-      --text-soft: rgba(245, 237, 224, 0.72);
-      --text-muted: rgba(245, 237, 224, 0.42);
-    }
-    [data-theme="light"] .industrial {
+    /* Industrial section stays cinematic-dark regardless of theme attr */
+    [data-theme="light"] .industrial,
+    .industrial {
       --text:      #F5EDE0;
       --text-soft: rgba(245, 237, 224, 0.72);
       --text-muted: rgba(245, 237, 224, 0.42);
       --border: rgba(255,255,255,0.08);
-    }
-    [data-theme="light"] .sector-desc {
-      color: rgba(245, 237, 224, 0.68);
     }
 
     /* ── REDUCED MOTION ── */
@@ -1519,27 +1606,17 @@
     <div class="hero-img" style="background-image: url('https://www.sapelli.pe/theme_sapelli/static/src/img/proyectos/hotel-iberostar-lima/DSC_4940.jpg');"></div>
     <div class="hero-gradient"></div>
 
-    <!-- Decorative wood-grain motif (logo symbol) -->
-    <svg class="hero-motif" viewBox="0 0 700 700">
-      <circle cx="350" cy="350" r="50"/>
-      <circle cx="350" cy="350" r="90"/>
-      <circle cx="350" cy="350" r="135"/>
-      <circle cx="350" cy="350" r="185"/>
-      <circle cx="350" cy="350" r="240"/>
-      <circle cx="350" cy="350" r="300"/>
-      <circle cx="350" cy="350" r="340"/>
-    </svg>
+    <!-- (decorative wood-grain motif removed) -->
 
     <div class="hero-content">
-      <div class="hero-tag">Mobiliario Contract · Lima, Perú</div>
+      <div class="hero-tag">Mobiliario Contract · Lima, Perú · Desde 1992</div>
       <h1 class="hero-title">
-        Espacios que<br />
-        <em>Transforman</em><br />
-        Negocios
+        Mobiliario contract,<br />
+        <em>fabricado en Lima.</em>
       </h1>
       <p class="hero-sub">
-        Diseñamos y fabricamos mobiliario contract con tecnología de alto rendimiento
-        para hoteles, oficinas, restaurantes y espacios de salud.
+        Diseñamos y fabricamos mobiliario para hoteles, oficinas, restaurantes y
+        clínicas. Planos técnicos, prototipos y producción CNC en una sola planta.
       </p>
       <div class="hero-actions">
         <a href="#contacto" class="btn-primary">
@@ -1616,7 +1693,7 @@
         </div>
         <div class="nosotros-content">
           <div class="section-label fade-up">Quiénes Somos</div>
-          <h2 class="section-title fade-up">Más de tres décadas <em>construyendo</em> espacios memorables</h2>
+          <h2 class="section-title fade-up">Tres décadas <em>fabricando</em> mobiliario contract en el Perú</h2>
           <p class="section-body fade-up">
             Sapelli Mobiliario es una empresa peruana especializada en mobiliario contract de alta exigencia.
             Combinamos diseño funcional, materiales premium y fabricación local para entregar soluciones
@@ -1770,7 +1847,7 @@
       <div class="productos-header">
         <div class="section-label fade-up">Líneas de Producto</div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end;">
-          <h2 class="section-title fade-up">Mobiliario que<br /><em>dura</em> y que se ve bien</h2>
+          <h2 class="section-title fade-up">Líneas de mobiliario<br /><em>de catálogo</em> y a medida</h2>
           <a href="catalogo.html" class="btn-ghost fade-up" style="flex-shrink:0">
             Catálogo completo
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1856,8 +1933,8 @@
     <div class="section-inner">
       <div class="proceso-header">
         <div class="section-label">Cómo Trabajamos</div>
-        <h2 class="section-title">Del concepto a la <em>instalación</em></h2>
-        <p class="section-body">Un proceso claro, colaborativo y sin sorpresas. De principio a fin.</p>
+        <h2 class="section-title">Del plano a la <em>instalación</em></h2>
+        <p class="section-body">Cada proyecto pasa por seis fases. Sin sorpresas, con planos firmados y prototipos aprobados antes de producir.</p>
       </div>
 
       <div class="proceso-steps stagger">
@@ -1901,6 +1978,213 @@
   </section>
 
   <!-- ═══════════════════════════════════════
+       DETALLE CONSTRUCTIVO (drawings)
+  ═══════════════════════════════════════ -->
+  <section class="detalle" id="detalle">
+    <div class="section-inner">
+      <div class="detalle-header">
+        <div>
+          <div class="section-label fade-up">Detalle Constructivo</div>
+          <h2 class="section-title fade-up">Cada pieza nace de un<br /><em>plano técnico</em></h2>
+        </div>
+        <p class="section-body fade-up">
+          Antes de cortar la primera plancha, cada mueble pasa por planos de despiece,
+          fichas técnicas y prototipo aprobado. Nuestro equipo de proyectos coordina
+          con su arquitecto desde el levantamiento hasta el detalle de herraje.
+        </p>
+      </div>
+
+      <div class="detalle-grid stagger">
+
+        <!-- Plate 1 — Headboard elevation -->
+        <article class="plate fade-up">
+          <header class="plate-head">
+            <div class="plate-num">PL-01</div>
+            <div class="plate-meta">
+              <span>Cabecera tapizada · Hotel</span>
+              <span>Esc. 1:25</span>
+            </div>
+          </header>
+          <div class="plate-body">
+            <svg viewBox="0 0 360 240" class="dwg" aria-hidden="true">
+              <defs>
+                <pattern id="grid1" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.18"/>
+                </pattern>
+              </defs>
+              <rect width="360" height="240" fill="url(#grid1)"/>
+              <!-- Headboard outline -->
+              <rect x="60" y="40" width="240" height="130" fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <!-- Tufting buttons -->
+              <g fill="none" stroke="currentColor" stroke-width="0.8">
+                <circle cx="100" cy="80"  r="3"/><circle cx="140" cy="80"  r="3"/><circle cx="180" cy="80"  r="3"/><circle cx="220" cy="80"  r="3"/><circle cx="260" cy="80"  r="3"/>
+                <circle cx="100" cy="115" r="3"/><circle cx="140" cy="115" r="3"/><circle cx="180" cy="115" r="3"/><circle cx="220" cy="115" r="3"/><circle cx="260" cy="115" r="3"/>
+                <circle cx="100" cy="150" r="3"/><circle cx="140" cy="150" r="3"/><circle cx="180" cy="150" r="3"/><circle cx="220" cy="150" r="3"/><circle cx="260" cy="150" r="3"/>
+              </g>
+              <!-- Bed line -->
+              <line x1="40" y1="170" x2="320" y2="170" stroke="currentColor" stroke-width="1.2"/>
+              <line x1="40" y1="174" x2="320" y2="174" stroke="currentColor" stroke-width="0.6" stroke-dasharray="3 3"/>
+              <!-- Dim lines -->
+              <g stroke="currentColor" stroke-width="0.6" fill="none">
+                <line x1="60" y1="195" x2="300" y2="195"/>
+                <line x1="60" y1="190" x2="60" y2="200"/>
+                <line x1="300" y1="190" x2="300" y2="200"/>
+                <line x1="40" y1="40" x2="40" y2="170"/>
+                <line x1="35" y1="40" x2="45" y2="40"/>
+                <line x1="35" y1="170" x2="45" y2="170"/>
+              </g>
+              <text x="180" y="210" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">2400 mm</text>
+              <text x="28" y="108" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor" transform="rotate(-90 28 108)">1300 mm</text>
+              <!-- Callouts -->
+              <g stroke="var(--orange)" stroke-width="0.9" fill="none">
+                <circle cx="180" cy="115" r="14"/>
+                <line x1="194" y1="115" x2="240" y2="50"/>
+              </g>
+              <text x="244" y="48" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--orange)" font-weight="600">A — capitoné Ø 18 mm</text>
+            </svg>
+          </header>
+          <footer class="plate-foot">
+            <span><strong>Material</strong> · MDF 18 mm + espuma HD30 + tela contract FR</span>
+            <span><strong>Estructura</strong> · Bastidor pino radiata 45×70</span>
+          </footer>
+        </article>
+
+        <!-- Plate 2 — Reception desk plan -->
+        <article class="plate fade-up">
+          <header class="plate-head">
+            <div class="plate-num">PL-02</div>
+            <div class="plate-meta">
+              <span>Counter recepción · Planta</span>
+              <span>Esc. 1:40</span>
+            </div>
+          </header>
+          <div class="plate-body">
+            <svg viewBox="0 0 360 240" class="dwg" aria-hidden="true">
+              <defs>
+                <pattern id="grid2" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.18"/>
+                </pattern>
+              </defs>
+              <rect width="360" height="240" fill="url(#grid2)"/>
+              <!-- Counter L-shape -->
+              <path d="M 50 80 L 250 80 L 250 110 L 90 110 L 90 200 L 50 200 Z"
+                    fill="none" stroke="currentColor" stroke-width="1.4"/>
+              <!-- Inner work surface line -->
+              <path d="M 60 90 L 240 90 L 240 100 L 80 100 L 80 190 L 60 190 Z"
+                    fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="2 2"/>
+              <!-- Hatching (laminate top) -->
+              <g stroke="currentColor" stroke-width="0.4" opacity="0.55">
+                <line x1="50" y1="80" x2="80" y2="50"/>
+                <line x1="80" y1="80" x2="110" y2="50"/>
+                <line x1="110" y1="80" x2="140" y2="50"/>
+                <line x1="140" y1="80" x2="170" y2="50"/>
+                <line x1="170" y1="80" x2="200" y2="50"/>
+                <line x1="200" y1="80" x2="230" y2="50"/>
+              </g>
+              <!-- Dim chains -->
+              <g stroke="currentColor" stroke-width="0.6" fill="none">
+                <line x1="50" y1="220" x2="250" y2="220"/>
+                <line x1="50" y1="215" x2="50" y2="225"/>
+                <line x1="250" y1="215" x2="250" y2="225"/>
+                <line x1="270" y1="80" x2="270" y2="200"/>
+                <line x1="265" y1="80" x2="275" y2="80"/>
+                <line x1="265" y1="200" x2="275" y2="200"/>
+              </g>
+              <text x="150" y="232" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">3800 mm</text>
+              <text x="296" y="143" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">2200 mm</text>
+              <!-- Callouts -->
+              <g stroke="var(--orange)" stroke-width="0.9" fill="none">
+                <circle cx="250" cy="80" r="6"/>
+                <line x1="256" y1="80" x2="310" y2="40"/>
+              </g>
+              <text x="314" y="38" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--orange)" font-weight="600">B — canto ABS</text>
+              <text x="314" y="50" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--orange)" font-weight="600">post-form 2 mm</text>
+            </svg>
+          </div>
+          <footer class="plate-foot">
+            <span><strong>Tablero</strong> · Melamina 25 mm acabado roble nordico</span>
+            <span><strong>Frente</strong> · Lacado mate · color a especificar</span>
+          </footer>
+        </article>
+
+        <!-- Plate 3 — Chair section -->
+        <article class="plate fade-up">
+          <header class="plate-head">
+            <div class="plate-num">PL-03</div>
+            <div class="plate-meta">
+              <span>Silla restaurante · Sección</span>
+              <span>Esc. 1:10</span>
+            </div>
+          </header>
+          <div class="plate-body">
+            <svg viewBox="0 0 360 240" class="dwg" aria-hidden="true">
+              <defs>
+                <pattern id="grid3" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.18"/>
+                </pattern>
+              </defs>
+              <rect width="360" height="240" fill="url(#grid3)"/>
+              <!-- Chair side profile -->
+              <g fill="none" stroke="currentColor" stroke-width="1.4">
+                <!-- back -->
+                <path d="M 150 30 Q 145 80 150 130 L 165 130 Q 162 80 168 30 Z"/>
+                <!-- seat -->
+                <path d="M 150 130 L 230 130 L 230 145 L 150 145 Z"/>
+                <!-- front leg -->
+                <path d="M 220 145 L 222 220 L 230 220 L 228 145 Z"/>
+                <!-- back leg -->
+                <path d="M 152 130 L 145 220 L 153 220 L 160 130 Z"/>
+                <!-- stretcher -->
+                <line x1="150" y1="190" x2="226" y2="190" stroke-width="0.9"/>
+              </g>
+              <!-- cushion hatch -->
+              <g stroke="currentColor" stroke-width="0.4" opacity="0.5">
+                <line x1="155" y1="135" x2="165" y2="125"/>
+                <line x1="170" y1="135" x2="180" y2="125"/>
+                <line x1="185" y1="135" x2="195" y2="125"/>
+                <line x1="200" y1="135" x2="210" y2="125"/>
+                <line x1="215" y1="135" x2="225" y2="125"/>
+              </g>
+              <!-- Dim lines -->
+              <g stroke="currentColor" stroke-width="0.6" fill="none">
+                <line x1="270" y1="30" x2="270" y2="220"/>
+                <line x1="265" y1="30" x2="275" y2="30"/>
+                <line x1="265" y1="220" x2="275" y2="220"/>
+                <line x1="270" y1="145" x2="280" y2="145"/>
+                <line x1="60" y1="145" x2="60" y2="220"/>
+                <line x1="55" y1="145" x2="65" y2="145"/>
+                <line x1="55" y1="220" x2="65" y2="220"/>
+              </g>
+              <text x="296" y="90" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">880</text>
+              <text x="296" y="190" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">450</text>
+              <text x="48" y="186" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="currentColor">450</text>
+              <!-- Joinery callout -->
+              <g stroke="var(--orange)" stroke-width="0.9" fill="none">
+                <rect x="146" y="125" width="22" height="14"/>
+                <line x1="146" y1="132" x2="100" y2="80"/>
+              </g>
+              <text x="30" y="76" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--orange)" font-weight="600">C — espiga</text>
+              <text x="30" y="88" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--orange)" font-weight="600">+ tornillo M6</text>
+            </svg>
+          </div>
+          <footer class="plate-foot">
+            <span><strong>Madera</strong> · Roble macizo FSC · 25×40 mm estructura</span>
+            <span><strong>Acabado</strong> · Barniz PU mate · resist. norma BIFMA</span>
+          </footer>
+        </article>
+
+      </div>
+
+      <div class="detalle-foot">
+        <div class="detalle-foot-line"></div>
+        <a href="#contacto" class="btn-ghost">Solicitar fichas técnicas
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
        INDUSTRIAL / SCM
   ═══════════════════════════════════════ -->
   <section class="industrial" id="industrial">
@@ -1910,8 +2194,8 @@
 
       <div class="industrial-content">
         <div class="section-label fade-up">Tecnología Industrial</div>
-        <h2 class="section-title fade-up">
-          Maquinaria de clase<br />mundial, <em>made in Lima</em>
+          <h2 class="section-title fade-up">
+          Maquinaria CNC<br />de <em>fabricación europea</em>
         </h2>
         <p class="section-body fade-up">
           Nuestra planta opera con tecnología CNC de SCM Group — líder mundial
@@ -1935,19 +2219,19 @@
 
         <div class="industrial-machines fade-up">
           <div class="machine-card">
-            <img loading="lazy" src="Assets/morbidelli_x100@2x.avif" alt="Morbidelli X100" />
+            <img loading="lazy" src="Assets/morbidelli_x100.avif" alt="Morbidelli X100" />
             <div class="machine-card-label">Morbidelli X100
               <div class="machine-card-sub">Centro CNC multipunto</div>
             </div>
           </div>
           <div class="machine-card">
-            <img loading="lazy" src="Assets/morbidelli-cx110_W.avif" alt="Morbidelli CX110" />
+            <img loading="lazy" src="Assets/morbidelli_cx110.avif" alt="Morbidelli CX110" />
             <div class="machine-card-label">Morbidelli CX110
               <div class="machine-card-sub">Centro CNC nesting</div>
             </div>
           </div>
           <div class="machine-card">
-            <img loading="lazy" src="Assets/t460_2@2x.avif" alt="SCM T460" />
+            <img loading="lazy" src="Assets/scm_t460.avif" alt="SCM T460" />
             <div class="machine-card-label">SCM T460
               <div class="machine-card-sub">Canteadora automática</div>
             </div>
@@ -1989,7 +2273,7 @@
       <div class="proyectos-header">
         <div>
           <div class="section-label fade-up">Proyectos Destacados</div>
-          <h2 class="section-title fade-up">Espacios que <em>reflejan</em><br/>nuestra dedicación al detalle</h2>
+          <h2 class="section-title fade-up">Proyectos<br /><em>recientes</em></h2>
         </div>
         <a href="proyectos.html" class="btn-ghost fade-up">
           Ver portafolio completo
@@ -2059,7 +2343,7 @@
       <div class="contacto-grid">
         <div class="contacto-info">
           <div class="section-label fade-up">Contacto</div>
-          <h2 class="section-title fade-up">Hablemos de<br />su <em>próximo proyecto</em></h2>
+          <h2 class="section-title fade-up">Cuéntenos sobre<br />su <em>proyecto</em></h2>
           <p class="section-body fade-up">
             Cuéntenos sobre su proyecto y uno de nuestros especialistas
             se pondrá en contacto en menos de 24 horas con una propuesta inicial.
@@ -2246,13 +2530,13 @@
       const nav = document.querySelector('.nav');
       const isLight = document.documentElement.dataset.theme === 'light';
       if (window.scrollY > 60) {
-        nav.style.background = isLight ? 'rgba(248,243,237,0.98)' : 'rgba(13,12,11,0.97)';
-        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.08)' : 'rgba(255,255,255,0.08)';
+        nav.style.background = isLight ? 'rgba(248,243,237,0.98)' : 'rgba(255,255,255,0.97)';
+        nav.style.borderBottomColor = isLight ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.08)';
       } else {
         nav.style.background = isLight
           ? 'rgba(248,243,237,0.6)'
-          : 'linear-gradient(to bottom, rgba(13,12,11,0.95) 0%, transparent 100%)';
-        nav.style.borderBottomColor = isLight ? 'rgba(13,12,11,0.05)' : 'rgba(255,255,255,0.07)';
+          : 'linear-gradient(to bottom, rgba(255,255,255,0.95) 0%, transparent 100%)';
+        nav.style.borderBottomColor = isLight ? 'rgba(255,255,255,0.05)' : 'rgba(13,12,11,0.10)';
       }
     });
 

@@ -1536,6 +1536,56 @@
     .icon-sun { display: none; }
     [data-theme="light"] .icon-moon { display: none; }
     [data-theme="light"] .icon-sun { display: block; }
+    [data-theme="dark"] .icon-moon { display: block; }
+    [data-theme="dark"] .icon-sun { display: none; }
+
+    /* ── DARK MODE TOKENS ── */
+    [data-theme="dark"] {
+      --ink:         #0D0C0B;
+      --ink-2:       #181614;
+      --ink-3:       #1e1b18;
+      --surface:     #1E1C1A;
+      --border:      rgba(255,255,255,0.07);
+      --border-warm: rgba(224, 88, 32, 0.28);
+      --text:        #F5EDE0;
+      --text-soft:   rgba(245, 237, 224, 0.65);
+      --text-muted:  rgba(245, 237, 224, 0.38);
+      --charcoal:    #8a847e;
+    }
+    [data-theme="dark"] .nav {
+      background: linear-gradient(to bottom, rgba(13,12,11,0.96) 0%, rgba(13,12,11,0.75) 60%, transparent 100%);
+    }
+    [data-theme="dark"] .pilar-card {
+      background: var(--surface);
+      border-color: rgba(255,255,255,0.08);
+    }
+    [data-theme="dark"] .producto-card,
+    [data-theme="dark"] .step {
+      background: var(--surface);
+      border-color: rgba(255,255,255,0.08);
+    }
+    [data-theme="dark"] .plate {
+      background: #1a1714;
+      border-color: rgba(255,255,255,0.10);
+    }
+    [data-theme="dark"] .detalle {
+      background: #141210;
+    }
+    [data-theme="dark"] .proceso {
+      background: var(--ink-2);
+    }
+    [data-theme="dark"] input,
+    [data-theme="dark"] textarea,
+    [data-theme="dark"] select {
+      border-color: rgba(245, 237, 224, 0.20);
+      color: var(--text);
+    }
+    [data-theme="dark"] input:focus,
+    [data-theme="dark"] textarea:focus,
+    [data-theme="dark"] select:focus {
+      border-color: var(--orange);
+      background: rgba(224, 88, 32, 0.06);
+    }
 
     /* Industrial section stays cinematic-dark regardless of theme attr */
     [data-theme="light"] .industrial,
@@ -1568,7 +1618,7 @@
       color: var(--orange) !important;
     }
   </style>
-  <script>if(localStorage.getItem('sapelli-theme')!=='dark')document.documentElement.dataset.theme='light';</script>
+  <script>document.documentElement.dataset.theme=localStorage.getItem('sapelli-theme')==='dark'?'dark':'light';</script>
 </head>
 <body>
   <a href="#main" class="skip-link">Saltar al contenido</a>
@@ -2589,9 +2639,9 @@
 
     // ── Theme ──
     function toggleTheme() {
-      const isLight = document.documentElement.dataset.theme === 'light';
-      document.documentElement.dataset.theme = isLight ? '' : 'light';
-      localStorage.setItem('sapelli-theme', isLight ? 'dark' : 'light');
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+      localStorage.setItem('sapelli-theme', isDark ? 'light' : 'dark');
     }
   </script>
 
